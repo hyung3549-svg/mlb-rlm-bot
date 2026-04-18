@@ -1,0 +1,175 @@
+2026-04-18 14:23:55 [INFO] main: ============================================================
+2026-04-18 14:23:55 [INFO] main:   ⚾ MLB 배당 역행 감지기 시작
+2026-04-18 14:23:55 [INFO] main:   수집 간격     : 300초
+2026-04-18 14:23:55 [INFO] main:   배당 역행 임계: 75.0% / 10.0 배당
+2026-04-18 14:23:55 [INFO] main:   알림 윈도우   : 경기 1.0~3.0시간 전
+2026-04-18 14:23:55 [INFO] main:   스팀무브 임계 : 배당 0.1 / 라인 1.0
+2026-04-18 14:23:55 [INFO] main: ============================================================
+
+2026-04-18 14:23:55 [INFO] main: ━━━ 사이클 시작: 2026-04-18 14:23 KST ━━━
+2026-04-18 14:24:03 [INFO] scraper: MLB 경기 15개 발견
+2026-04-18 14:24:03 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524611
+2026-04-18 14:24:08 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524592
+2026-04-18 14:24:12 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524609
+2026-04-18 14:24:17 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524591
+2026-04-18 14:24:22 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524597
+2026-04-18 14:24:28 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524603
+2026-04-18 14:24:32 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524587
+2026-04-18 14:24:38 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524612
+2026-04-18 14:24:43 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524600
+2026-04-18 14:24:48 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524606
+2026-04-18 14:24:53 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524599
+2026-04-18 14:24:58 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524608
+2026-04-18 14:25:03 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524589
+2026-04-18 14:25:08 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524601
+2026-04-18 14:25:14 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524586
+2026-04-18 14:25:19 [INFO] scraper: 총 15경기 저장 → ./data\latest.json
+2026-04-18 14:25:19 [INFO] main: 수집 경기 수: 15
+2026-04-18 14:25:19 [INFO] main: DB 업데이트 완료 (신규: 15개 / 전체: 15개)
+2026-04-18 14:25:19 [INFO] main: 감지 신호: 0건
+2026-04-18 14:25:19 [INFO] main: 알림 발송: 0건
+2026-04-18 14:25:19 [INFO] main: ━━━ 사이클 완료 ━━━
+
+2026-04-18 14:25:19 [INFO] main: 300초 대기 중...
+
+2026-04-18 15:05:07 [INFO] main: ============================================================
+2026-04-18 15:05:07 [INFO] main:   ⚾ MLB 배당 역행 감지기 시작
+2026-04-18 15:05:07 [INFO] main:   수집 간격     : 300초
+2026-04-18 15:05:07 [INFO] main:   배당 역행 임계: 75.0% / 10.0 배당
+2026-04-18 15:05:07 [INFO] main:   알림 윈도우   : 경기 1.0~3.0시간 전
+2026-04-18 15:05:07 [INFO] main:   스팀무브 임계 : 배당 0.1 / 라인 1.0
+2026-04-18 15:05:07 [INFO] main: ============================================================
+
+2026-04-18 15:05:07 [INFO] main: ━━━ 사이클 시작: 2026-04-18 15:05 KST ━━━
+2026-04-18 15:05:14 [INFO] scraper: MLB 경기 15개 발견
+2026-04-18 15:05:14 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524611
+2026-04-18 15:05:19 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524592
+2026-04-18 15:05:25 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524609
+2026-04-18 15:05:29 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524591
+2026-04-18 15:05:34 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524597
+2026-04-18 15:05:39 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524603
+2026-04-18 15:05:44 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524587
+2026-04-18 15:05:50 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524612
+2026-04-18 15:05:56 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524600
+2026-04-18 15:06:01 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524606
+2026-04-18 15:06:06 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524599
+2026-04-18 15:06:11 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524608
+2026-04-18 15:06:15 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524589
+2026-04-18 15:06:20 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524601
+2026-04-18 15:06:25 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524586
+2026-04-18 15:06:30 [INFO] scraper: 총 15경기 저장 → ./data\latest.json
+2026-04-18 15:06:30 [INFO] main: 수집 경기 수: 15
+2026-04-18 15:06:30 [INFO] main: DB 업데이트 완료 (신규: 0개 / 전체: 15개)
+2026-04-18 15:06:30 [INFO] money_scraper: [money_scraper] 15경기 $% 수집 완료
+2026-04-18 15:06:30 [INFO] main: $% 수집: 15경기
+2026-04-18 15:06:30 [INFO] main: 감지 신호: 0건
+2026-04-18 15:06:30 [INFO] main: 알림 발송: 0건
+2026-04-18 15:06:30 [INFO] main: ━━━ 사이클 완료 ━━━
+
+2026-04-18 15:06:30 [INFO] main: 300초 대기 중...
+
+2026-04-19 00:04:18 [INFO] main: ━━━ 사이클 시작: 2026-04-19 00:04 KST ━━━
+2026-04-19 00:04:29 [INFO] scraper: MLB 경기 15개 발견
+2026-04-19 00:04:29 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524611
+2026-04-19 00:04:34 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524592
+2026-04-19 00:04:40 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524609
+2026-04-19 00:04:44 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524591
+2026-04-19 00:04:50 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524597
+2026-04-19 00:04:54 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524603
+2026-04-19 00:04:59 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524587
+2026-04-19 00:05:04 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524612
+2026-04-19 00:05:10 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524600
+2026-04-19 00:05:24 [WARNING] scraper: 배당 로딩 타임아웃: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524600
+2026-04-19 00:05:25 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524606
+2026-04-19 00:05:30 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524599
+2026-04-19 00:05:38 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524608
+2026-04-19 00:05:42 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524589
+2026-04-19 00:05:47 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524601
+2026-04-19 00:05:52 [INFO] scraper: 파싱 중: https://www.bwzkix1.com/%EC%8A%A4%ED%8F%AC%EC%B8%A0/match/Baseball/North%20America/608/29524586
+2026-04-19 00:05:58 [INFO] scraper: 총 14경기 저장 → ./data\latest.json
+2026-04-19 00:05:58 [INFO] main: 수집 경기 수: 14
+2026-04-19 00:05:58 [INFO] main: DB 업데이트 완료 (신규: 0개 / 전체: 15개)
+2026-04-19 00:05:58 [INFO] money_scraper: [money_scraper] 15경기 $% 수집 완료
+2026-04-19 00:05:58 [INFO] main: $% 수집: 15경기
+2026-04-19 00:05:58 [INFO] main: 감지 신호: 12건
+2026-04-19 00:05:58 [INFO] main:   [RLM] 캔자스시티 로열스 vs 뉴욕 양키스 (2.5h 후) | 승패 | +0.08
+2026-04-19 00:05:58 [INFO] main:   [LINE_MOVE] 캔자스시티 로열스 vs 뉴욕 양키스 (2.5h 후) | 언오버 기준점 | -0.5
+2026-04-19 00:05:58 [INFO] main:   [RLM] 캔자스시티 로열스 vs 뉴욕 양키스 (2.5h 후) | 언오버 언더(8.0) | +0.08
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 밀워키 브루어즈 vs 마이애미 말린즈 (5.1h 후) | 핸디캡 밀워키 브루어즈 (-1.5) [스팀] | +0.30
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 디트로이트 타이거스 vs 보스턴 레드삭스 (5.1h 후) | 승패 [스팀] | -0.10
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 디트로이트 타이거스 vs 보스턴 레드삭스 (5.1h 후) | 핸디캡 디트로이트 타이거스 (-1.5) [스팀] | +0.10
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 텍사스 레인저스 vs 시애틀 매리너스 (8.2h 후) | 핸디캡 시애틀 매리너스 (-1.5) [스팀] | +0.10
+2026-04-19 00:05:58 [INFO] main:   [STEAM] LA 다저스 vs 콜로라도 록키스 (9.1h 후) | 승패 [스팀] | +0.23
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 (9.1h 후) | 승패 [스팀] | +0.19
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 (9.1h 후) | 승패 [스팀] | -0.15
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 (9.1h 후) | 핸디캡 애리조나 다이아몬드백스 (-1.5) [스팀] | -0.22
+2026-04-19 00:05:58 [INFO] main:   [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 (9.1h 후) | 핸디캡 토론토 블루제이스 (+1.5) [스팀] | +0.11
+2026-04-19 00:05:58 [INFO] notifier: 알림: [RLM] 캔자스시티 로열스 vs 뉴욕 양키스 / 승패
+2026-04-19 00:05:58 [INFO] notifier: 알림: [LINE_MOVE] 캔자스시티 로열스 vs 뉴욕 양키스 / 언오버 기준점
+2026-04-19 00:05:58 [INFO] notifier: 알림: [RLM] 캔자스시티 로열스 vs 뉴욕 양키스 / 언오버 언더(8.0)
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 밀워키 브루어즈 vs 마이애미 말린즈 / 핸디캡 밀워키 브루어즈 (-1.5) [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 디트로이트 타이거스 vs 보스턴 레드삭스 / 승패 [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 디트로이트 타이거스 vs 보스턴 레드삭스 / 핸디캡 디트로이트 타이거스 (-1.5) [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 텍사스 레인저스 vs 시애틀 매리너스 / 핸디캡 시애틀 매리너스 (-1.5) [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] LA 다저스 vs 콜로라도 록키스 / 승패 [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 / 승패 [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 / 승패 [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 / 핸디캡 애리조나 다이아몬드백스 (-1.5) [스팀]
+2026-04-19 00:05:58 [INFO] notifier: 알림: [STEAM] 토론토 블루제이스 vs 애리조나 다이아몬드백스 / 핸디캡 토론토 블루제이스 (+1.5) [스팀]
+2026-04-19 00:05:58 [INFO] main: 알림 발송: 12건
+2026-04-19 00:05:58 [INFO] main: ━━━ 사이클 완료 ━━━
+
+2026-04-19 07:50:07 [INFO] main: ============================================================
+2026-04-19 07:50:07 [INFO] main:   ⚾ MLB 배당 역행 감지기 시작
+2026-04-19 07:50:07 [INFO] main:   수집 간격     : 300초
+2026-04-19 07:50:07 [INFO] main:   배당 역행 임계: 75.0% / 10.0 배당
+2026-04-19 07:50:21 [INFO] main: ============================================================
+2026-04-19 07:50:21 [INFO] main:   ⚾ MLB 배당 역행 감지기 시작
+2026-04-19 07:50:21 [INFO] main:   수집 간격     : 300초
+2026-04-19 07:50:21 [INFO] main:   배당 역행 임계: 75.0% / 10.0 배당
+2026-04-19 07:50:21 [INFO] main:   알림 윈도우   : 경기 1.0~3.0시간 전
+2026-04-19 07:50:21 [INFO] main:   스팀무브 임계 : 배당 0.1 / 라인 1.0
+2026-04-19 07:50:21 [INFO] main: ============================================================
+
+2026-04-19 07:50:21 [INFO] main: ━━━ 사이클 시작: 2026-04-19 07:50 KST ━━━
+2026-04-19 07:50:21 [INFO] scraper: [WS] 세션 연결 (sid=ec0dd39f-a7e6-44ab-4d9c-e97f162f31cb-6)
+2026-04-19 07:50:21 [INFO] scraper: [WS] 경기 21개 수신
+2026-04-19 07:50:22 [INFO] scraper: 총 21경기 저장 → ./data\latest.json
+2026-04-19 07:50:22 [INFO] main: 수집 경기 수: 21
+2026-04-19 07:50:22 [INFO] main: DB 업데이트 완료 (신규: 0개 / 전체: 30개)
+2026-04-19 07:50:24 [INFO] money_scraper: [money_scraper] 21경기 $% 수집 완료
+2026-04-19 07:50:24 [INFO] main: $% 수집: 21경기
+2026-04-19 07:50:24 [INFO] main: 감지 신호: 14건
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 휴스턴 애스트로스 vs 세인트루이스 카디널스 (0.3h 후) | 승패 [스팀] | -0.52
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 휴스턴 애스트로스 vs 세인트루이스 카디널스 (0.3h 후) | 승패 [스팀] | +0.53
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 필라델피아 필리스 vs 애틀랜타 브레이브스 (0.4h 후) | 승패 [스팀] | -0.24
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 필라델피아 필리스 vs 애틀랜타 브레이브스 (0.4h 후) | 승패 [스팀] | +0.25
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 필라델피아 필리스 vs 애틀랜타 브레이브스 (0.4h 후) | 핸디캡 필라델피아 필리스 (-1.5) [스팀] | +0.10
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 시애틀 매리너스 vs 텍사스 레인저스 (0.4h 후) | 승패 [스팀] | -0.39
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 시애틀 매리너스 vs 텍사스 레인저스 (0.4h 후) | 승패 [스팀] | +0.40
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 콜로라도 록키스 vs LA 다저스 (1.3h 후) | 승패 [스팀] | +1.83
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 콜로라도 록키스 vs LA 다저스 (1.3h 후) | 승패 [스팀] | -1.93
+2026-04-19 07:50:24 [INFO] main:   [RLM] 콜로라도 록키스 vs LA 다저스 (1.3h 후) | 승패 | +1.80
+2026-04-19 07:50:24 [INFO] main:   [LINE_RLM] 콜로라도 록키스 vs LA 다저스 (1.3h 후) | 언오버 기준점 | -0.5
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 애리조나 다이아몬드백스 vs 토론토 블루제이스 (1.3h 후) | 승패 [스팀] | -0.54
+2026-04-19 07:50:24 [INFO] main:   [STEAM] 애리조나 다이아몬드백스 vs 토론토 블루제이스 (1.3h 후) | 승패 [스팀] | +0.55
+2026-04-19 07:50:24 [INFO] main:   [RLM] LA 에인절스 vs 샌디에이고 파드리스 (2.8h 후) | 언오버 오버(9.5) | +0.15
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 휴스턴 애스트로스 vs 세인트루이스 카디널스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 휴스턴 애스트로스 vs 세인트루이스 카디널스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 필라델피아 필리스 vs 애틀랜타 브레이브스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 필라델피아 필리스 vs 애틀랜타 브레이브스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 필라델피아 필리스 vs 애틀랜타 브레이브스 / 핸디캡 필라델피아 필리스 (-1.5) [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 시애틀 매리너스 vs 텍사스 레인저스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 시애틀 매리너스 vs 텍사스 레인저스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 콜로라도 록키스 vs LA 다저스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 콜로라도 록키스 vs LA 다저스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [RLM] 콜로라도 록키스 vs LA 다저스 / 승패
+2026-04-19 07:50:24 [INFO] notifier: 알림: [LINE_RLM] 콜로라도 록키스 vs LA 다저스 / 언오버 기준점
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 애리조나 다이아몬드백스 vs 토론토 블루제이스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [STEAM] 애리조나 다이아몬드백스 vs 토론토 블루제이스 / 승패 [스팀]
+2026-04-19 07:50:24 [INFO] notifier: 알림: [RLM] LA 에인절스 vs 샌디에이고 파드리스 / 언오버 오버(9.5)
+2026-04-19 07:50:24 [INFO] main: 알림 발송: 14건
+2026-04-19 07:50:24 [INFO] main: ━━━ 사이클 완료 ━━━
+
+2026-04-19 07:50:24 [INFO] main: 300초 대기 중...
+

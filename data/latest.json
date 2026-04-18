@@ -1,0 +1,848 @@
+[
+  {
+    "url": "https://www.bwzkix1.com/608/29527567",
+    "match_id": "29527567",
+    "league": "MLB",
+    "away_team": "필라델피아 필리스",
+    "home_team": "애틀랜타 브레이브스",
+    "game_time_kst": "08:20 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "필라델피아 필리스",
+      "home_team": "애틀랜타 브레이브스",
+      "away_odds": 1.8,
+      "home_odds": 2.02
+    },
+    "handicap_15": {
+      "fav_team": "필라델피아 필리스",
+      "dog_team": "애틀랜타 브레이브스",
+      "fav_odds": 2.63,
+      "dog_odds": 1.45
+    },
+    "main_ou": {
+      "under_odds": 1.9,
+      "under_label": "언더 (8.0)",
+      "line": 8.0,
+      "over_odds": 1.9,
+      "over_label": "오버 (8.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29524586",
+    "match_id": "29524586",
+    "league": "MLB",
+    "away_team": "LA 에인절스",
+    "home_team": "샌디에이고 파드리스",
+    "game_time_kst": "10:38 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "LA 에인절스",
+      "home_team": "샌디에이고 파드리스",
+      "away_odds": 1.84,
+      "home_odds": 1.84
+    },
+    "handicap_15": {
+      "fav_team": "샌디에이고 파드리스",
+      "dog_team": "LA 에인절스",
+      "fav_odds": 2.37,
+      "dog_odds": 1.58
+    },
+    "main_ou": {
+      "over_odds": 2.02,
+      "over_label": "오버 (9.5)",
+      "line": 9.5,
+      "under_odds": 1.83,
+      "under_label": "언더 (9.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29524589",
+    "match_id": "29524589",
+    "league": "MLB",
+    "away_team": "콜로라도 록키스",
+    "home_team": "LA 다저스",
+    "game_time_kst": "09:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "콜로라도 록키스",
+      "home_team": "LA 다저스",
+      "away_odds": 3.15,
+      "home_odds": 1.35
+    },
+    "handicap_15": {
+      "fav_team": "LA 다저스",
+      "dog_team": "콜로라도 록키스",
+      "fav_odds": 1.55,
+      "dog_odds": 2.42
+    },
+    "main_ou": {
+      "over_odds": 1.86,
+      "over_label": "오버 (10.5)",
+      "line": 10.5,
+      "under_odds": 1.98,
+      "under_label": "언더 (10.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29524599",
+    "match_id": "29524599",
+    "league": "MLB",
+    "away_team": "필라델피아 필리스",
+    "home_team": "애틀랜타 브레이브스",
+    "game_time_kst": "08:15 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "필라델피아 필리스",
+      "home_team": "애틀랜타 브레이브스",
+      "away_odds": 1.82,
+      "home_odds": 2.03
+    },
+    "handicap_15": {
+      "fav_team": "필라델피아 필리스",
+      "dog_team": "애틀랜타 브레이브스",
+      "fav_odds": 2.7,
+      "dog_odds": 1.45
+    },
+    "main_ou": {
+      "over_odds": 1.9,
+      "over_label": "오버 (7.0)",
+      "line": 7.0,
+      "under_odds": 1.94,
+      "under_label": "언더 (7.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29524601",
+    "match_id": "29524601",
+    "league": "MLB",
+    "away_team": "애리조나 다이아몬드백스",
+    "home_team": "토론토 블루제이스",
+    "game_time_kst": "09:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "애리조나 다이아몬드백스",
+      "home_team": "토론토 블루제이스",
+      "away_odds": 1.65,
+      "home_odds": 2.22
+    },
+    "handicap_15": {
+      "fav_team": "토론토 블루제이스",
+      "dog_team": "애리조나 다이아몬드백스",
+      "fav_odds": 3.0,
+      "dog_odds": 1.38
+    },
+    "main_ou": {
+      "under_odds": 1.94,
+      "under_label": "언더 (9.0)",
+      "line": 9.0,
+      "over_odds": 1.9,
+      "over_label": "오버 (9.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29524606",
+    "match_id": "29524606",
+    "league": "MLB",
+    "away_team": "휴스턴 애스트로스",
+    "home_team": "세인트루이스 카디널스",
+    "game_time_kst": "08:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "휴스턴 애스트로스",
+      "home_team": "세인트루이스 카디널스",
+      "away_odds": 1.7,
+      "home_odds": 2.15
+    },
+    "handicap_15": {
+      "fav_team": "휴스턴 애스트로스",
+      "dog_team": "세인트루이스 카디널스",
+      "fav_odds": 2.4,
+      "dog_odds": 1.57
+    },
+    "main_ou": {
+      "under_odds": 1.9,
+      "under_label": "언더 (9.0)",
+      "line": 9.0,
+      "over_odds": 1.94,
+      "over_label": "오버 (9.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29524608",
+    "match_id": "29524608",
+    "league": "MLB",
+    "away_team": "시애틀 매리너스",
+    "home_team": "텍사스 레인저스",
+    "game_time_kst": "08:15 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "시애틀 매리너스",
+      "home_team": "텍사스 레인저스",
+      "away_odds": 1.73,
+      "home_odds": 2.12
+    },
+    "handicap_15": {
+      "fav_team": "시애틀 매리너스",
+      "dog_team": "텍사스 레인저스",
+      "fav_odds": 2.45,
+      "dog_odds": 1.53
+    },
+    "main_ou": {
+      "over_odds": 2.02,
+      "over_label": "오버 (7.5)",
+      "line": 7.5,
+      "under_odds": 1.83,
+      "under_label": "언더 (7.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525343",
+    "match_id": "29525343",
+    "league": "MLB",
+    "away_team": "보스턴 레드삭스",
+    "home_team": "디트로이트 타이거스",
+    "game_time_kst": "02:35 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "보스턴 레드삭스",
+      "home_team": "디트로이트 타이거스",
+      "away_odds": 1.67,
+      "home_odds": 2.17
+    },
+    "handicap_15": {
+      "fav_team": "보스턴 레드삭스",
+      "dog_team": "디트로이트 타이거스",
+      "fav_odds": 2.45,
+      "dog_odds": 1.52
+    },
+    "main_ou": {
+      "under_odds": 1.86,
+      "under_label": "언더 (7.0)",
+      "line": 7.0,
+      "over_odds": 1.95,
+      "over_label": "오버 (7.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525344",
+    "match_id": "29525344",
+    "league": "MLB",
+    "away_team": "워싱턴 내셔널스",
+    "home_team": "샌프란시스코 자이언츠",
+    "game_time_kst": "02:35 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "워싱턴 내셔널스",
+      "home_team": "샌프란시스코 자이언츠",
+      "away_odds": 2.17,
+      "home_odds": 1.67
+    },
+    "handicap_15": {
+      "fav_team": "샌프란시스코 자이언츠",
+      "dog_team": "워싱턴 내셔널스",
+      "fav_odds": 2.1,
+      "dog_odds": 1.72
+    },
+    "main_ou": {
+      "under_odds": 1.95,
+      "under_label": "언더 (8.0)",
+      "line": 8.0,
+      "over_odds": 1.86,
+      "over_label": "오버 (8.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525345",
+    "match_id": "29525345",
+    "league": "MLB",
+    "away_team": "피츠버그 파이어리츠",
+    "home_team": "탬파베이 레이스",
+    "game_time_kst": "02:35 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "피츠버그 파이어리츠",
+      "home_team": "탬파베이 레이스",
+      "away_odds": 1.81,
+      "home_odds": 2.01
+    },
+    "handicap_15": {
+      "fav_team": "탬파베이 레이스",
+      "dog_team": "피츠버그 파이어리츠",
+      "fav_odds": 2.63,
+      "dog_odds": 1.45
+    },
+    "main_ou": {
+      "under_odds": 2.0,
+      "under_label": "언더 (7.5)",
+      "line": 7.5,
+      "over_odds": 1.82,
+      "over_label": "오버 (7.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525346",
+    "match_id": "29525346",
+    "league": "MLB",
+    "away_team": "뉴욕 양키스",
+    "home_team": "캔자스시티 로열스",
+    "game_time_kst": "02:35 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "뉴욕 양키스",
+      "home_team": "캔자스시티 로열스",
+      "away_odds": 1.72,
+      "home_odds": 2.1
+    },
+    "handicap_15": {
+      "fav_team": "뉴욕 양키스",
+      "dog_team": "캔자스시티 로열스",
+      "fav_odds": 2.5,
+      "dog_odds": 1.5
+    },
+    "main_ou": {
+      "over_odds": 1.95,
+      "over_label": "오버 (7.5)",
+      "line": 7.5,
+      "under_odds": 1.86,
+      "under_label": "언더 (7.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525375",
+    "match_id": "29525375",
+    "league": "MLB",
+    "away_team": "클리블랜드 가디언스",
+    "home_team": "볼티모어 오리올스",
+    "game_time_kst": "02:40 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "클리블랜드 가디언스",
+      "home_team": "볼티모어 오리올스",
+      "away_odds": 1.83,
+      "home_odds": 1.98
+    },
+    "handicap_15": {
+      "fav_team": "볼티모어 오리올스",
+      "dog_team": "클리블랜드 가디언스",
+      "fav_odds": 2.63,
+      "dog_odds": 1.45
+    },
+    "main_ou": {
+      "under_odds": 1.95,
+      "under_label": "언더 (7.0)",
+      "line": 7.0,
+      "over_odds": 1.86,
+      "over_label": "오버 (7.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525376",
+    "match_id": "29525376",
+    "league": "MLB",
+    "away_team": "마이애미 말린즈",
+    "home_team": "밀워키 브루어즈",
+    "game_time_kst": "02:40 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "마이애미 말린즈",
+      "home_team": "밀워키 브루어즈",
+      "away_odds": 2.01,
+      "home_odds": 1.81
+    },
+    "handicap_15": {
+      "fav_team": "밀워키 브루어즈",
+      "dog_team": "마이애미 말린즈",
+      "fav_odds": 2.35,
+      "dog_odds": 1.57
+    },
+    "main_ou": {
+      "under_odds": 2.0,
+      "under_label": "언더 (7.5)",
+      "line": 7.5,
+      "over_odds": 1.82,
+      "over_label": "오버 (7.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525539",
+    "match_id": "29525539",
+    "league": "MLB",
+    "away_team": "휴스턴 애스트로스",
+    "home_team": "세인트루이스 카디널스",
+    "game_time_kst": "03:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "휴스턴 애스트로스",
+      "home_team": "세인트루이스 카디널스",
+      "away_odds": 1.7,
+      "home_odds": 2.13
+    },
+    "handicap_15": {
+      "fav_team": "휴스턴 애스트로스",
+      "dog_team": "세인트루이스 카디널스",
+      "fav_odds": 2.4,
+      "dog_odds": 1.55
+    },
+    "main_ou": {
+      "over_odds": 1.9,
+      "over_label": "오버 (8.5)",
+      "line": 8.5,
+      "under_odds": 1.9,
+      "under_label": "언더 (8.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525540",
+    "match_id": "29525540",
+    "league": "MLB",
+    "away_team": "미네소타 트윈스",
+    "home_team": "신시내티 레즈",
+    "game_time_kst": "03:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "미네소타 트윈스",
+      "home_team": "신시내티 레즈",
+      "away_odds": 1.77,
+      "home_odds": 2.05
+    },
+    "handicap_15": {
+      "fav_team": "미네소타 트윈스",
+      "dog_team": "신시내티 레즈",
+      "fav_odds": 2.55,
+      "dog_odds": 1.48
+    },
+    "main_ou": {
+      "over_odds": 1.86,
+      "over_label": "오버 (8.0)",
+      "line": 8.0,
+      "under_odds": 1.95,
+      "under_label": "언더 (8.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525560",
+    "match_id": "29525560",
+    "league": "MLB",
+    "away_team": "시카고 컵스",
+    "home_team": "뉴욕 메츠",
+    "game_time_kst": "03:20 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "시카고 컵스",
+      "home_team": "뉴욕 메츠",
+      "away_odds": 1.84,
+      "home_odds": 1.97
+    },
+    "handicap_15": {
+      "fav_team": "뉴욕 메츠",
+      "dog_team": "시카고 컵스",
+      "fav_odds": 2.55,
+      "dog_odds": 1.48
+    },
+    "main_ou": {
+      "over_odds": 1.95,
+      "over_label": "오버 (8.5)",
+      "line": 8.5,
+      "under_odds": 1.86,
+      "under_label": "언더 (8.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29525743",
+    "match_id": "29525743",
+    "league": "MLB",
+    "away_team": "콜로라도 록키스",
+    "home_team": "LA 다저스",
+    "game_time_kst": "04:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "콜로라도 록키스",
+      "home_team": "LA 다저스",
+      "away_odds": 3.25,
+      "home_odds": 1.32
+    },
+    "handicap_15": {
+      "fav_team": "LA 다저스",
+      "dog_team": "콜로라도 록키스",
+      "fav_odds": 1.55,
+      "dog_odds": 2.4
+    },
+    "main_ou": {
+      "over_odds": 1.86,
+      "over_label": "오버 (11.0)",
+      "line": 11.0,
+      "under_odds": 1.95,
+      "under_label": "언더 (11.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29526728",
+    "match_id": "29526728",
+    "league": "MLB",
+    "away_team": "LA 에인절스",
+    "home_team": "샌디에이고 파드리스",
+    "game_time_kst": "05:07 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "LA 에인절스",
+      "home_team": "샌디에이고 파드리스",
+      "away_odds": 1.98,
+      "home_odds": 1.83
+    },
+    "handicap_15": {
+      "fav_team": "샌디에이고 파드리스",
+      "dog_team": "LA 에인절스",
+      "fav_odds": 2.4,
+      "dog_odds": 1.55
+    },
+    "main_ou": {
+      "under_odds": 1.86,
+      "under_label": "언더 (8.5)",
+      "line": 8.5,
+      "over_odds": 1.95,
+      "over_label": "오버 (8.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29526729",
+    "match_id": "29526729",
+    "league": "MLB",
+    "away_team": "The Athletics",
+    "home_team": "시카고 화이트삭스",
+    "game_time_kst": "05:05 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "The Athletics",
+      "home_team": "시카고 화이트삭스",
+      "away_odds": 1.65,
+      "home_odds": 2.2
+    },
+    "handicap_15": {
+      "fav_team": "The Athletics",
+      "dog_team": "시카고 화이트삭스",
+      "fav_odds": 2.27,
+      "dog_odds": 1.6
+    },
+    "main_ou": {
+      "over_odds": 1.86,
+      "over_label": "오버 (9.0)",
+      "line": 9.0,
+      "under_odds": 1.95,
+      "under_label": "언더 (9.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29526742",
+    "match_id": "29526742",
+    "league": "MLB",
+    "away_team": "애리조나 다이아몬드백스",
+    "home_team": "토론토 블루제이스",
+    "game_time_kst": "05:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "애리조나 다이아몬드백스",
+      "home_team": "토론토 블루제이스",
+      "away_odds": 1.94,
+      "home_odds": 1.87
+    },
+    "handicap_15": {
+      "fav_team": "토론토 블루제이스",
+      "dog_team": "애리조나 다이아몬드백스",
+      "fav_odds": 2.45,
+      "dog_odds": 1.52
+    },
+    "main_ou": {
+      "under_odds": 1.95,
+      "under_label": "언더 (8.0)",
+      "line": 8.0,
+      "over_odds": 1.86,
+      "over_label": "오버 (8.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/608/29526743",
+    "match_id": "29526743",
+    "league": "MLB",
+    "away_team": "시애틀 매리너스",
+    "home_team": "텍사스 레인저스",
+    "game_time_kst": "05:10 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "시애틀 매리너스",
+      "home_team": "텍사스 레인저스",
+      "away_odds": 1.65,
+      "home_odds": 2.2
+    },
+    "handicap_15": {
+      "fav_team": "시애틀 매리너스",
+      "dog_team": "텍사스 레인저스",
+      "fav_odds": 2.5,
+      "dog_odds": 1.5
+    },
+    "main_ou": {
+      "under_odds": 1.9,
+      "under_label": "언더 (7.0)",
+      "line": 7.0,
+      "over_odds": 1.9,
+      "over_label": "오버 (7.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/611/29529518",
+    "match_id": "29529518",
+    "league": "KBO",
+    "away_team": "삼성 라이온즈",
+    "home_team": "LG 트윈스",
+    "game_time_kst": "14:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "삼성 라이온즈",
+      "home_team": "LG 트윈스",
+      "away_odds": 1.82,
+      "home_odds": 2.02
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.98,
+      "over_label": "오버 (11.0)",
+      "line": 11.0,
+      "under_odds": 1.85,
+      "under_label": "언더 (11.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/611/29529519",
+    "match_id": "29529519",
+    "league": "KBO",
+    "away_team": "NC 다이노스",
+    "home_team": "SSG 랜더스",
+    "game_time_kst": "14:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "NC 다이노스",
+      "home_team": "SSG 랜더스",
+      "away_odds": 1.63,
+      "home_odds": 2.25
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.98,
+      "over_label": "오버 (10.5)",
+      "line": 10.5,
+      "under_odds": 1.85,
+      "under_label": "언더 (10.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/611/29529520",
+    "match_id": "29529520",
+    "league": "KBO",
+    "away_team": "롯데 자이언츠",
+    "home_team": "한화 이글스",
+    "game_time_kst": "14:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "롯데 자이언츠",
+      "home_team": "한화 이글스",
+      "away_odds": 2.06,
+      "home_odds": 1.78
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.91,
+      "over_label": "오버 (10.5)",
+      "line": 10.5,
+      "under_odds": 1.91,
+      "under_label": "언더 (10.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/611/29529521",
+    "match_id": "29529521",
+    "league": "KBO",
+    "away_team": "두산 베어스",
+    "home_team": "기아 타이거즈",
+    "game_time_kst": "14:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "두산 베어스",
+      "home_team": "기아 타이거즈",
+      "away_odds": 2.13,
+      "home_odds": 1.71
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.88,
+      "over_label": "오버 (9.0)",
+      "line": 9.0,
+      "under_odds": 1.95,
+      "under_label": "언더 (9.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/611/29530795",
+    "match_id": "29530795",
+    "league": "KBO",
+    "away_team": "KT 위즈",
+    "home_team": "키움 히어로즈",
+    "game_time_kst": "17:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "KT 위즈",
+      "home_team": "키움 히어로즈",
+      "away_odds": 1.45,
+      "home_odds": 2.67
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.95,
+      "over_label": "오버 (9.5)",
+      "line": 9.5,
+      "under_odds": 1.88,
+      "under_label": "언더 (9.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/612/29519362",
+    "match_id": "29519362",
+    "league": "NPB",
+    "away_team": "니혼햄 파이터스",
+    "home_team": "세이부 라이온스",
+    "game_time_kst": "13:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "니혼햄 파이터스",
+      "home_team": "세이부 라이온스",
+      "away_odds": 1.55,
+      "home_odds": 2.41
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.87,
+      "over_label": "오버 (6.5)",
+      "line": 6.5,
+      "under_odds": 1.97,
+      "under_label": "언더 (6.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/612/29519363",
+    "match_id": "29519363",
+    "league": "NPB",
+    "away_team": "소프트뱅크 호크스",
+    "home_team": "오릭스 버팔로스",
+    "game_time_kst": "13:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "소프트뱅크 호크스",
+      "home_team": "오릭스 버팔로스",
+      "away_odds": 1.5,
+      "home_odds": 2.53
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.82,
+      "over_label": "오버 (7.0)",
+      "line": 7.0,
+      "under_odds": 2.02,
+      "under_label": "언더 (7.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/612/29519716",
+    "match_id": "29519716",
+    "league": "NPB",
+    "away_team": "히로시마 도요카프",
+    "home_team": "요코하마 DeNA 베이스타스",
+    "game_time_kst": "13:30 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "히로시마 도요카프",
+      "home_team": "요코하마 DeNA 베이스타스",
+      "away_odds": 1.85,
+      "home_odds": 1.98
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.82,
+      "over_label": "오버 (6.0)",
+      "line": 6.0,
+      "under_odds": 2.02,
+      "under_label": "언더 (6.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/612/29520000",
+    "match_id": "29520000",
+    "league": "NPB",
+    "away_team": "한신 타이거즈",
+    "home_team": "주니치 드래곤즈",
+    "game_time_kst": "14:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "한신 타이거즈",
+      "home_team": "주니치 드래곤즈",
+      "away_odds": 1.6,
+      "home_odds": 2.3
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 2.03,
+      "over_label": "오버 (5.5)",
+      "line": 5.5,
+      "under_odds": 1.81,
+      "under_label": "언더 (5.5)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/612/29520870",
+    "match_id": "29520870",
+    "league": "NPB",
+    "away_team": "라쿠텐 골든 이글스",
+    "home_team": "지바 롯데 마린스",
+    "game_time_kst": "16:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "라쿠텐 골든 이글스",
+      "home_team": "지바 롯데 마린스",
+      "away_odds": 1.62,
+      "home_odds": 2.25
+    },
+    "handicap_15": null,
+    "main_ou": {
+      "over_odds": 1.92,
+      "over_label": "오버 (6.0)",
+      "line": 6.0,
+      "under_odds": 1.9,
+      "under_label": "언더 (6.0)"
+    }
+  },
+  {
+    "url": "https://www.bwzkix1.com/612/29521922",
+    "match_id": "29521922",
+    "league": "NPB",
+    "away_team": "야쿠르트 스왈로스",
+    "home_team": "요미우리 자이언츠",
+    "game_time_kst": "18:00 KST",
+    "fetched_at": "2026-04-19 07:56 KST",
+    "moneyline": {
+      "away_team": "야쿠르트 스왈로스",
+      "home_team": "요미우리 자이언츠",
+      "away_odds": 2.2,
+      "home_odds": 1.65
+    },
+    "handicap_15": {
+      "fav_team": "야쿠르트 스왈로스",
+      "dog_team": "요미우리 자이언츠",
+      "fav_odds": 3.6,
+      "dog_odds": 1.27
+    },
+    "main_ou": {
+      "over_odds": 1.86,
+      "over_label": "오버 (7.0)",
+      "line": 7.0,
+      "under_odds": 1.97,
+      "under_label": "언더 (7.0)"
+    }
+  }
+]
