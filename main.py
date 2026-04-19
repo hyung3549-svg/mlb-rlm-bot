@@ -92,10 +92,6 @@ async def run_once() -> None:
 
 
 async def main_loop() -> None:
-    # ── 시작 시 DB 초기화 (날짜 오류 데이터 제거) ─────────────────
-    DB.save_db({"games": {}})
-    logger.info("🗑 경기 DB 초기화 완료 (start_ts 픽스 적용)")
-
     logger.info("=" * 60)
     logger.info("  ⚾ MLB 배당 역행 감지기 시작")
     logger.info(f"  수집 간격     : {config.SCRAPE_INTERVAL_SECONDS}초")
