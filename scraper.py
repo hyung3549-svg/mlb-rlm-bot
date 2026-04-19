@@ -96,8 +96,9 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
     P1P2 → 승패, RunLine(-1.5) → 핸디캡, TotalRunsOver/Under → 언오버
     """
     moneyline = None
-    hc_away: Optional[tuple] = None
-    hc_home: Optional[tuple] = None
+    # RunLine 후보: (neg15_side, neg15_price, pos15_price)
+    # neg15_side: "away" or "home" (누가 -1.5를 주는지)
+    rl_candidates: list[tuple] = []
     ou_map: dict[float, dict] = {}
 
     for _mid, market in markets_data.items():
@@ -119,18 +120,28 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
                     }
 
         elif mtype == "RunLine":
-            # -1.5 라인만 추출 (2.5, 3.5 등 다른 라인은 무시)
+            # ±1.5 마켓만 처리 (2.5, 3.5 등 무시)
             mkt_base = _safe_float(market.get("base"))
             if mkt_base is None or abs(abs(mkt_base) - 1.5) > 0.01:
                 continue
+            tmp_away = tmp_home = None
             for ev in events.values():
                 base  = _safe_float(ev.get("base"))
                 price = _safe_float(ev.get("price"))
                 t1    = ev.get("type_1", "")
                 if base is None or price is None:
                     continue
-                if t1 == "Away":   hc_away = (base, price)
-                elif t1 == "Home": hc_home = (base, price)
+                if t1 == "Away":   tmp_away = (base, price)
+                elif t1 == "Home": tmp_home = (base, price)
+            if tmp_away and tmp_home:
+                ab, ap = tmp_away
+                hb, hp = tmp_home
+                if abs(ab + 1.5) < 0.01:
+                    # Away가 -1.5
+                    rl_candidates.append(("away", ap, hp))
+                elif abs(hb + 1.5) < 0.01:
+                    # Home이 -1.5
+                    rl_candidates.append(("home", hp, ap))
 
         elif mtype == "TotalRunsOver/Under":
             mkt_base = _safe_float(market.get("base"))
@@ -145,19 +156,20 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
                 if t1 == "Over":  row["over_odds"] = price
                 elif t1 == "Under": row["under_odds"] = price
 
+    # -1.5 배당이 낮은 쪽 = 실제 정배팀 (모노라인 정배 = RunLine 정배)
     handicap_15 = None
-    if hc_away and hc_home:
-        away_base, away_price = hc_away
-        home_base, home_price = hc_home
-        if abs(away_base + 1.5) < 0.01:
+    if rl_candidates:
+        best = min(rl_candidates, key=lambda c: c[1])  # neg15_price 가장 낮은 것
+        neg15_side, neg15_price, pos15_price = best
+        if neg15_side == "away":
             handicap_15 = {
                 "fav_team": away_team, "dog_team": home_team,
-                "fav_odds": away_price, "dog_odds": home_price,
+                "fav_odds": neg15_price, "dog_odds": pos15_price,
             }
-        elif abs(home_base + 1.5) < 0.01:
+        else:
             handicap_15 = {
                 "fav_team": home_team, "dog_team": away_team,
-                "fav_odds": home_price, "dog_odds": away_price,
+                "fav_odds": neg15_price, "dog_odds": pos15_price,
             }
 
     return {
