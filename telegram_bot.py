@@ -173,7 +173,10 @@ async def _cmd_status(chat_id: str) -> str:
                 upcoming.append((h, e))
 
         for lg, cnt in sorted(league_count.items()):
-            em = {"MLB": "⚾", "KBO": "🇰🇷", "NPB": "🇯🇵", "EPL": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"}.get(lg, "🏟")
+            em = {
+                "MLB": "⚾", "KBO": "🇰🇷", "NPB": "🇯🇵",
+                "EPL": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Bundesliga": "🇩🇪", "SerieA": "🇮🇹", "Ligue1": "🇫🇷",
+            }.get(lg, "🏟")
             lines.append(f"{em} {lg}: {cnt}경기")
 
         if upcoming:
