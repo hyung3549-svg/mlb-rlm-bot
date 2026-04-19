@@ -119,6 +119,10 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
                     }
 
         elif mtype == "RunLine":
+            # -1.5 라인만 추출 (2.5, 3.5 등 다른 라인은 무시)
+            mkt_base = _safe_float(market.get("base"))
+            if mkt_base is None or abs(abs(mkt_base) - 1.5) > 0.01:
+                continue
             for ev in events.values():
                 base  = _safe_float(ev.get("base"))
                 price = _safe_float(ev.get("price"))
