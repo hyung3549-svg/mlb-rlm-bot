@@ -20,6 +20,7 @@ import analyzer
 import notifier
 import money_scraper
 import result_checker
+import telegram_bot
 
 KST = timezone(timedelta(hours=9))
 
@@ -109,5 +110,13 @@ async def main_loop() -> None:
         await asyncio.sleep(config.SCRAPE_INTERVAL_SECONDS)
 
 
+async def main() -> None:
+    """스크래퍼 루프 + 텔레그램 채팅봇 동시 실행"""
+    await asyncio.gather(
+        main_loop(),
+        telegram_bot.poll_loop(),
+    )
+
+
 if __name__ == "__main__":
-    asyncio.run(main_loop())
+    asyncio.run(main())

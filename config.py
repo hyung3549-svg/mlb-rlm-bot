@@ -7,6 +7,9 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID   = os.getenv("TELEGRAM_CHAT_ID", "")
 
+# ─── Anthropic Claude AI ───────────────────────────
+ANTHROPIC_API_KEY  = os.getenv("ANTHROPIC_API_KEY", "")
+
 # ─── 스크래핑 간격 ─────────────────────────────────
 SCRAPE_INTERVAL_SECONDS = int(os.getenv("SCRAPE_INTERVAL", "300"))  # 5분
 
