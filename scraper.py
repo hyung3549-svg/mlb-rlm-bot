@@ -42,9 +42,9 @@ def _kst_now() -> str:
 
 
 def _ts_to_kst_hhmm(ts: int) -> str:
-    """Unix timestamp(UTC) → 'HH:MM KST'"""
+    """Unix timestamp(UTC) → 'MM/DD HH:MM KST'"""
     dt = datetime.fromtimestamp(ts, tz=timezone.utc).astimezone(KST)
-    return dt.strftime("%H:%M") + " KST"
+    return dt.strftime("%m/%d %H:%M") + " KST"
 
 
 def _safe_float(v) -> Optional[float]:
@@ -311,6 +311,7 @@ async def _ws_get_league_data(ws, league: str, competition_id: int) -> list[dict
             "away_team":     away_team,
             "home_team":     home_team,
             "game_time_kst": game_time,
+            "start_ts":      int(start_ts) if start_ts else 0,
             "fetched_at":    _kst_now(),
             "moneyline":     parsed["moneyline"],
             "handicap_15":   parsed["handicap_15"],

@@ -94,6 +94,7 @@ def update_game(db: dict, game: dict) -> dict:
             "away_team":     game.get("away_team", ""),
             "home_team":     game.get("home_team", ""),
             "game_time_kst": game.get("game_time_kst", ""),
+            "start_ts":      game.get("start_ts", 0),
             "league":        game.get("league", "MLB"),
             "url":           game.get("url", ""),
             "first_seen":    _now_kst(),
@@ -111,6 +112,8 @@ def update_game(db: dict, game: dict) -> dict:
             entry["home_team"] = game["home_team"]
         if game.get("game_time_kst"):
             entry["game_time_kst"] = game["game_time_kst"]
+        if game.get("start_ts"):
+            entry["start_ts"] = game["start_ts"]
         if game.get("league"):
             entry["league"] = game["league"]
 
@@ -126,20 +129,40 @@ def update_game(db: dict, game: dict) -> dict:
 def hours_until_game(entry: dict) -> float | None:
     """
     KST 기준 경기 시작까지 남은 시간(시간 단위) 계산.
-    게임 시간 형식: "02:35 KST"
-    날짜는 '지금보다 미래인 가장 가까운 날짜'로 결정.
+    start_ts (Unix timestamp) 우선 사용, 없으면 game_time_kst 파싱 (구버전 호환).
     """
+    now = datetime.now(KST)
+
+    # ── start_ts 우선 ──────────────────────────────────────────────
+    ts = entry.get("start_ts")
+    if ts:
+        try:
+            game_dt = datetime.fromtimestamp(int(ts), tz=timezone.utc).astimezone(KST)
+            delta_hours = (game_dt - now).total_seconds() / 3600
+            return round(delta_hours, 2)
+        except (ValueError, OSError):
+            pass
+
+    # ── 구버전: HH:MM KST 파싱 (날짜 없이 추정) ──────────────────
     raw = entry.get("game_time_kst", "")
     try:
-        time_str = raw.replace(" KST", "").strip()   # "02:35"
-        hh, mm   = int(time_str[:2]), int(time_str[3:5])
+        time_str = raw.replace(" KST", "").strip()
+        # "MM/DD HH:MM" 형식이면 날짜 포함
+        if "/" in time_str:
+            parts = time_str.split()
+            md, hm = parts[0], parts[1]
+            mo, da = int(md.split("/")[0]), int(md.split("/")[1])
+            hh, mm = int(hm[:2]), int(hm[3:5])
+            candidate = now.replace(month=mo, day=da, hour=hh, minute=mm, second=0, microsecond=0)
+            if candidate <= now:
+                candidate = candidate.replace(year=candidate.year + 1)
+        else:
+            hh, mm = int(time_str[:2]), int(time_str[3:5])
+            candidate = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
+            if candidate <= now:
+                candidate = candidate + timedelta(days=1)
     except (ValueError, IndexError):
         return None
-
-    now = datetime.now(KST)
-    candidate = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
-    if candidate <= now:
-        candidate = candidate + timedelta(days=1)   # 오늘 이미 지났으면 내일
 
     delta_hours = (candidate - now).total_seconds() / 3600
     return round(delta_hours, 2)
