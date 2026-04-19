@@ -336,6 +336,7 @@ async def _ws_scrape_all() -> list[dict]:
             },
             ping_interval=20,
             ping_timeout=10,
+            max_size=10 * 1024 * 1024,   # 10MB (축구 리그 응답이 큼)
         ) as ws:
 
             # ── 세션 인증 ─────────────────────────────────────────
