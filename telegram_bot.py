@@ -176,7 +176,7 @@ async def _cmd_status(chat_id: str) -> str:
             em = {
                 "MLB": "⚾", "KBO": "🇰🇷", "NPB": "🇯🇵",
                 "EPL": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Bundesliga": "🇩🇪", "SerieA": "🇮🇹", "Ligue1": "🇫🇷",
-                "LaLiga": "🇪🇸", "UCL": "🏆",
+                "LaLiga": "🇪🇸", "UCL": "🏆", "Championship": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
             }.get(lg, "🏟")
             lines.append(f"{em} {lg}: {cnt}경기")
 

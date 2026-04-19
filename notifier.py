@@ -58,8 +58,9 @@ LEAGUE_EMOJI = {
     "Bundesliga": "🇩🇪",
     "SerieA":     "🇮🇹",
     "Ligue1":     "🇫🇷",
-    "LaLiga":     "🇪🇸",
-    "UCL":        "🏆",
+    "LaLiga":       "🇪🇸",
+    "UCL":          "🏆",
+    "Championship": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
 }
 
 
