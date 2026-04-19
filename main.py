@@ -19,6 +19,7 @@ import scraper
 import analyzer
 import notifier
 import money_scraper
+import result_checker
 
 KST = timezone(timedelta(hours=9))
 
@@ -79,6 +80,13 @@ async def run_once() -> None:
     # 5. 알림
     sent = await notifier.notify(signals)
     logger.info(f"알림 발송: {sent}건")
+
+    # 6. 결과 확인 (경기 종료된 픽 자동 체크)
+    try:
+        await result_checker.check_results(notifier._send)
+    except Exception as e:
+        logger.error(f"결과 체크 오류 (무시): {e}")
+
     logger.info(f"━━━ 사이클 완료 ━━━\n")
 
 

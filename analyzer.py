@@ -62,6 +62,7 @@ class Signal:
     money_pct:   str = ""     # 등급 포함 문자열
     url:         str = ""
     league:      str = "MLB"
+    pick_side:   str = ""     # away/home/over/under/fav/dog  (픽 방향)
 
 
 # ─── 유틸리티 ────────────────────────────────────────────────────────────────
@@ -195,6 +196,8 @@ def _rlm_moneyline(entry: dict, hours: Optional[float],
             f"{_money_tier(side_pct)} → {ch['team']} 배당 악화  "
             f"(상대 {_money_tier(opp_pct)})"
         )
+        # 배당역행: ch["side"]에 돈 몰렸는데 배당 악화 → 샤프머니는 반대쪽 → 픽: 반대
+        pick = "home" if ch["side"] == "away" else "away"
         signals.append(Signal(
             **_base(entry, hours, sig_type),
             market      = "승패",
@@ -203,6 +206,7 @@ def _rlm_moneyline(entry: dict, hours: Optional[float],
             current_val = str(ch["curr"]),
             change_val  = f"{ch['diff']:+.2f}",
             money_pct   = money_str,
+            pick_side   = pick,
         ))
     return signals
 
@@ -228,6 +232,8 @@ def _rlm_hc(entry: dict, hours: Optional[float],
         if not _is_rlm(side_pct, ch["diff"]):
             continue
 
+        # 배당역행: ch["key"] 쪽에 돈 몰렸는데 배당 악화 → 픽: 반대
+        pick = "dog" if ch["key"] == "fav_odds" else "fav"
         signals.append(Signal(
             **_base(entry, hours, sig_type),
             market      = f"핸디캡 {ch['label']}",
@@ -236,6 +242,7 @@ def _rlm_hc(entry: dict, hours: Optional[float],
             current_val = str(ch["curr"]),
             change_val  = f"{ch['diff']:+.2f}",
             money_pct   = _money_tier(side_pct),
+            pick_side   = pick,
         ))
     return signals
 
@@ -266,6 +273,8 @@ def _rlm_ou(entry: dict, hours: Optional[float],
         )
         direction = "하락 ↓" if ld < 0 else "상승 ↑"
         _ltype = "LINE_RLM" if is_line_rlm else "LINE_MOVE"
+        # LINE_RLM: 오버에 돈 + 라인 하락 → 언더 픽  /  언더에 돈 + 라인 상승 → 오버 픽
+        line_pick = ("under" if ld < 0 else "over") if is_line_rlm else ""
         signals.append(Signal(
             **_base(entry, hours, _ltype),
             market      = "언오버 기준점",
@@ -277,9 +286,10 @@ def _rlm_ou(entry: dict, hours: Optional[float],
             current_val = str(cmp["line_curr"]),
             change_val  = f"{ld:+.1f}",
             money_pct   = f"$% 오버 {over_pct}% / 언더 {under_pct}%" if (over_pct or under_pct) else "",
+            pick_side   = line_pick,
         ))
 
-    # 2) 오버 배당 악화 (오버에 돈 몰렸는데 배당 상승)
+    # 2) 오버 배당 악화 (오버에 돈 몰렸는데 배당 상승) → 언더 픽
     od = cmp.get("over_diff")
     if od is not None and _is_rlm(over_pct, od):
         signals.append(Signal(
@@ -290,9 +300,10 @@ def _rlm_ou(entry: dict, hours: Optional[float],
             current_val = str(cmp["over_curr"]),
             change_val  = f"{od:+.2f}",
             money_pct   = f"오버 {_money_tier(over_pct)} / 언더 {_money_tier(under_pct)}",
+            pick_side   = "under",
         ))
 
-    # 3) 언더 배당 악화 (언더에 돈 몰렸는데 배당 상승)
+    # 3) 언더 배당 악화 (언더에 돈 몰렸는데 배당 상승) → 오버 픽
     ud = cmp.get("under_diff")
     if ud is not None and _is_rlm(under_pct, ud):
         signals.append(Signal(
@@ -303,6 +314,7 @@ def _rlm_ou(entry: dict, hours: Optional[float],
             current_val = str(cmp["under_curr"]),
             change_val  = f"{ud:+.2f}",
             money_pct   = f"오버 {_money_tier(over_pct)} / 언더 {_money_tier(under_pct)}",
+            pick_side   = "over",
         ))
 
     return signals
@@ -327,12 +339,14 @@ def _steam(entry: dict, hours: Optional[float]) -> list[Signal]:
         desc = f"{drop['team']} 배당 급락 ❄️"
         if rise:
             desc += f"  /  {rise['team']} 배당 급등 🔥"
+        # 스팀: 배당 급락 = 샤프머니 유입 → 그 팀 픽
         signals.append(Signal(**b,
             market      = "승패 [스팀]",
             description = desc,
             opening_val = str(drop["open"]),
             current_val = str(drop["curr"]),
             change_val  = f"{drop['diff']:+.2f}",
+            pick_side   = drop["side"],
         ))
 
     # 핸디캡 스팀 — 동일하게 급락팀 기준 하나로
@@ -344,12 +358,15 @@ def _steam(entry: dict, hours: Optional[float]) -> list[Signal]:
         desc = f"{drop['label']} 배당 급락 ❄️"
         if rise:
             desc += f"  /  {rise['label']} 배당 급등 🔥"
+        # 스팀: 배당 급락한 쪽 픽 (fav_odds 급락 → fav 픽, dog_odds 급락 → dog 픽)
+        hc_pick = "fav" if drop["key"] == "fav_odds" else "dog"
         signals.append(Signal(**b,
             market      = f"핸디캡 [스팀]",
             description = desc,
             opening_val = str(drop["open"]),
             current_val = str(drop["curr"]),
             change_val  = f"{drop['diff']:+.2f}",
+            pick_side   = hc_pick,
         ))
 
     # 언오버 라인 스팀
@@ -357,12 +374,15 @@ def _steam(entry: dict, hours: Optional[float]) -> list[Signal]:
     ld = cmp.get("line_diff")
     if ld is not None and abs(ld) >= STEAM_LINE_THRESHOLD:
         d = "급상승 🔥" if ld > 0 else "급하락 ❄️"
+        # 라인 급등 → 샤프가 오버 베팅 → 오버 픽 / 라인 급락 → 샤프가 언더 베팅 → 언더 픽
+        ou_pick = "over" if ld > 0 else "under"
         signals.append(Signal(**b,
             market      = "언오버 기준점 [스팀]",
             description = f"U/O 기준점 15분 내 {d}",
             opening_val = str(cmp["line_open"]),
             current_val = str(cmp["line_curr"]),
             change_val  = f"{ld:+.1f}",
+            pick_side   = ou_pick,
         ))
 
     return signals

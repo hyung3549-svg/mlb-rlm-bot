@@ -8,14 +8,18 @@ import hashlib
 import json
 import logging
 import os
+import re
+from datetime import datetime, timezone, timedelta
 
 import httpx
 
 import config
 from analyzer import Signal
+import result_checker
 
 logger = logging.getLogger(__name__)
 
+KST        = timezone(timedelta(hours=9))
 SENT_CACHE = os.path.join(config.DATA_DIR, "sent_signals.json")
 
 SIGNAL_EMOJI = {
@@ -53,12 +57,37 @@ LEAGUE_EMOJI = {
 }
 
 
+def _pick_line(sig: Signal) -> str:
+    """픽 방향 한 줄 문자열. pick_side 없으면 빈 문자열."""
+    side = getattr(sig, "pick_side", "")
+    if not side:
+        return ""
+    if side == "away":
+        return f"\n🎯 픽: 어웨이  *{sig.away_team}*"
+    if side == "home":
+        return f"\n🎯 픽: 홈  *{sig.home_team}*"
+    if side == "over":
+        m = re.search(r"\((\d+\.?\d*)\)", sig.market)
+        line = m.group(1) if m else ""
+        return f"\n🎯 픽: 오버 {line}"
+    if side == "under":
+        m = re.search(r"\((\d+\.?\d*)\)", sig.market)
+        line = m.group(1) if m else ""
+        return f"\n🎯 픽: 언더 {line}"
+    if side == "fav":
+        return "\n🎯 픽: 정배 (-1.5)"
+    if side == "dog":
+        return "\n🎯 픽: 역배 (+1.5)"
+    return ""
+
+
 def _build_message(sig: Signal) -> str:
     emoji  = SIGNAL_EMOJI.get(sig.signal_type, "📊")
     hours  = f"{sig.hours_left:.1f}h" if sig.hours_left is not None else "?"
     league = getattr(sig, "league", "MLB")
     le     = LEAGUE_EMOJI.get(league, "⚾")
     tag    = f"{le} {league}"
+    pick   = _pick_line(sig)
 
     if sig.signal_type == "NEW_GAME":
         return (
@@ -81,6 +110,7 @@ def _build_message(sig: Signal) -> str:
             f"📊 항목: {sig.market}\n"
             f"💥 {sig.description}\n"
             f"  15분 전: {sig.opening_val}  →  현재: {sig.current_val}  ({sig.change_val})"
+            f"{pick}"
         )
 
     if sig.signal_type == "LINE_MOVE":
@@ -107,6 +137,7 @@ def _build_message(sig: Signal) -> str:
             f"📐 {sig.description}\n"
             f"  오프닝: {sig.opening_val}  →  현재: {sig.current_val}  ({sig.change_val})"
             f"{money_line}"
+            f"{pick}"
         )
 
     if sig.signal_type == "FINAL":
@@ -121,6 +152,7 @@ def _build_message(sig: Signal) -> str:
             f"🏁 {sig.description}\n"
             f"  오프닝: {sig.opening_val}  →  현재: {sig.current_val}  ({sig.change_val})"
             f"{money_line}"
+            f"{pick}"
         )
 
     # RLM
@@ -135,6 +167,7 @@ def _build_message(sig: Signal) -> str:
         f"📉 {sig.description}\n"
         f"  오프닝: {sig.opening_val}  →  현재: {sig.current_val}  ({sig.change_val})"
         f"{money_line}"
+        f"{pick}"
     )
 
 
@@ -158,6 +191,52 @@ async def _send(text: str) -> bool:
         return False
 
 
+def _build_pick_record(sig: Signal, key: str) -> dict:
+    """픽 DB 저장 레코드 생성"""
+    now_kst = datetime.now(KST)
+    now_str = now_kst.strftime("%Y-%m-%d %H:%M KST")
+
+    # 경기 시작 시각 계산 (KST)
+    game_dt = None
+    try:
+        hm = sig.game_time.replace(" KST", "").strip()
+        hh, mm = int(hm[:2]), int(hm[3:5])
+        cand = now_kst.replace(hour=hh, minute=mm, second=0, microsecond=0)
+        if cand <= now_kst:
+            cand += __import__("datetime").timedelta(days=1)
+        game_dt = cand
+    except Exception:
+        pass
+
+    game_date_str   = game_dt.strftime("%Y-%m-%d") if game_dt else ""
+    # 경기 종료 예상 = 시작 + 4시간
+    check_after_str = (game_dt + timedelta(hours=4)).strftime("%Y-%m-%d %H:%M KST") if game_dt else ""
+
+    # OU 라인 추출
+    ou_line = None
+    if sig.pick_side in ("over", "under"):
+        m = re.search(r"\((\d+\.?\d*)\)", sig.market)
+        if m:
+            ou_line = float(m.group(1))
+
+    return {
+        "key":          key,
+        "match_id":     sig.match_id,
+        "away_team":    sig.away_team,
+        "home_team":    sig.home_team,
+        "game_time":    sig.game_time,
+        "game_date":    game_date_str,
+        "signal_type":  sig.signal_type,
+        "market":       sig.market,
+        "pick_side":    sig.pick_side,
+        "ou_line":      ou_line,
+        "league":       getattr(sig, "league", "MLB"),
+        "sent_at":      now_str,
+        "check_after":  check_after_str,
+        "result":       None,
+    }
+
+
 async def notify(signals: list[Signal]) -> int:
     sent = _load_sent()
     count = 0
@@ -171,5 +250,12 @@ async def notify(signals: list[Signal]) -> int:
             sent.add(k)
             count += 1
             logger.info(f"알림: [{sig.signal_type}] {sig.away_team} vs {sig.home_team} / {sig.market}")
+            # 픽이 있는 신호만 picks_db 에 저장
+            if getattr(sig, "pick_side", ""):
+                try:
+                    record = _build_pick_record(sig, k)
+                    result_checker.save_pick(k, record)
+                except Exception as e:
+                    logger.error(f"픽 저장 오류: {e}")
     _save_sent(sent)
     return count
