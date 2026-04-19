@@ -357,11 +357,10 @@ def _steam(entry: dict, hours: Optional[float]) -> list[Signal]:
         ml_rises = [ch for ch in ml_changes if ch["diff"] > 0]
 
         if ml_drops and ml_rises:
-            # 양쪽 다 임계치 초과: 급락팀 기준 표시
+            # 양쪽 다 임계치 초과: 급락팀만 표시 (반대쪽 오르는 건 당연)
             drop = max(ml_drops, key=lambda c: abs(c["diff"]))
-            rise = max(ml_rises, key=lambda c: abs(c["diff"]))
             ref  = drop
-            desc = f"{drop['team']} 배당 급락 ❄️  /  {rise['team']} 배당 급등 🔥"
+            desc = f"{drop['team']} 배당 급락 ❄️"
             ml_pick = drop["side"]
         elif ml_drops:
             # 한 팀만 급락
@@ -394,9 +393,8 @@ def _steam(entry: dict, hours: Optional[float]) -> list[Signal]:
 
         if hc_drops and hc_rises:
             drop = max(hc_drops, key=lambda c: abs(c["diff"]))
-            rise = max(hc_rises, key=lambda c: abs(c["diff"]))
             ref  = drop
-            desc = f"{drop['label']} 배당 급락 ❄️  /  {rise['label']} 배당 급등 🔥"
+            desc = f"{drop['label']} 배당 급락 ❄️"
             hc_pick = "fav" if drop["key"] == "fav_odds" else "dog"
         elif hc_drops:
             drop = hc_drops[0]
@@ -466,6 +464,21 @@ def analyze(db: dict, money_list: Optional[list] = None) -> list[Signal]:
             ml = entry["opening"].get("moneyline") or {}
             hc = entry["opening"].get("handicap_15") or {}
             ou = entry["opening"].get("main_ou") or {}
+
+            ml_str = (
+                f"승패  어웨이 {ml['away_odds']} / 홈 {ml['home_odds']}"
+                if ml.get("away_odds") and ml.get("home_odds") else ""
+            )
+            hc_str = (
+                f"핸디(-1.5)  정배 {hc['fav_odds']} / 역배 {hc['dog_odds']}"
+                if hc.get("fav_odds") and hc.get("dog_odds") else ""
+            )
+            ou_str = (
+                f"오버언더({ou['line']})  오버 {ou['over_odds']} / 언더 {ou['under_odds']}"
+                if ou.get("line") and ou.get("over_odds") and ou.get("under_odds") else ""
+            )
+            desc = "  |  ".join(s for s in [ml_str, hc_str, ou_str] if s)
+
             signals.append(Signal(
                 signal_type = "NEW_GAME",
                 match_id    = gid,
@@ -474,12 +487,7 @@ def analyze(db: dict, money_list: Optional[list] = None) -> list[Signal]:
                 game_time   = entry["game_time_kst"],
                 hours_left  = hours,
                 market      = "신규 등록",
-                description = (
-                    f"승패 어웨이 {ml.get('away_odds','?')} / 홈 {ml.get('home_odds','?')}  |  "
-                    f"핸디(-1.5) {hc.get('fav_odds','?')}  |  "
-                    f"U/O {ou.get('line','?')} "
-                    f"오버 {ou.get('over_odds','?')} / 언더 {ou.get('under_odds','?')}"
-                ),
+                description = desc,
                 opening_val = "오프닝 라인 고정",
                 url         = entry.get("url", ""),
                 league      = entry.get("league", "MLB"),
