@@ -329,43 +329,73 @@ def _steam(entry: dict, hours: Optional[float]) -> list[Signal]:
     signals = []
     b = _base(entry, hours, "STEAM")
 
-    # 승패 스팀 — 양쪽 동시 변동은 하나로 합침 (급락팀 기준)
+    # 승패 스팀 — 양쪽 동시 변동은 하나로 합침
     # STEAM_ODDS_MAX 초과는 팀 순서 뒤집힘 등 데이터 오류로 필터
     ml_changes = [ch for ch in _compare_ml(old.get("moneyline"), new.get("moneyline"))
                   if STEAM_ODDS_THRESHOLD <= abs(ch["diff"]) <= STEAM_ODDS_MAX]
     if ml_changes:
-        drop = next((ch for ch in ml_changes if ch["diff"] < 0), ml_changes[0])
-        rise = next((ch for ch in ml_changes if ch["diff"] > 0), None)
-        desc = f"{drop['team']} 배당 급락 ❄️"
-        if rise:
-            desc += f"  /  {rise['team']} 배당 급등 🔥"
-        # 스팀: 배당 급락 = 샤프머니 유입 → 그 팀 픽
+        ml_drops = [ch for ch in ml_changes if ch["diff"] < 0]
+        ml_rises = [ch for ch in ml_changes if ch["diff"] > 0]
+
+        if ml_drops and ml_rises:
+            # 양쪽 다 임계치 초과: 급락팀 기준 표시
+            drop = max(ml_drops, key=lambda c: abs(c["diff"]))
+            rise = max(ml_rises, key=lambda c: abs(c["diff"]))
+            ref  = drop
+            desc = f"{drop['team']} 배당 급락 ❄️  /  {rise['team']} 배당 급등 🔥"
+            ml_pick = drop["side"]
+        elif ml_drops:
+            # 한 팀만 급락
+            drop = ml_drops[0]
+            ref  = drop
+            desc = f"{drop['team']} 배당 급락 ❄️"
+            ml_pick = drop["side"]
+        else:
+            # 한 팀만 급등 → 반대 팀에 샤프머니 유입된 것
+            rise = ml_rises[0]
+            ref  = rise
+            desc = f"{rise['team']} 배당 급등 🔥  (반대 팀 샤프 유입)"
+            ml_pick = "home" if rise["side"] == "away" else "away"
+
         signals.append(Signal(**b,
             market      = "승패 [스팀]",
             description = desc,
-            opening_val = str(drop["open"]),
-            current_val = str(drop["curr"]),
-            change_val  = f"{drop['diff']:+.2f}",
-            pick_side   = drop["side"],
+            opening_val = str(ref["open"]),
+            current_val = str(ref["curr"]),
+            change_val  = f"{ref['diff']:+.2f}",
+            pick_side   = ml_pick,
         ))
 
     # 핸디캡 스팀 — 동일하게 급락팀 기준 하나로
     hc_changes = [ch for ch in _compare_hc(old.get("handicap_15"), new.get("handicap_15"))
                   if STEAM_ODDS_THRESHOLD <= abs(ch["diff"]) <= STEAM_ODDS_MAX]
     if hc_changes:
-        drop = next((ch for ch in hc_changes if ch["diff"] < 0), hc_changes[0])
-        rise = next((ch for ch in hc_changes if ch["diff"] > 0), None)
-        desc = f"{drop['label']} 배당 급락 ❄️"
-        if rise:
-            desc += f"  /  {rise['label']} 배당 급등 🔥"
-        # 스팀: 배당 급락한 쪽 픽 (fav_odds 급락 → fav 픽, dog_odds 급락 → dog 픽)
-        hc_pick = "fav" if drop["key"] == "fav_odds" else "dog"
+        hc_drops = [ch for ch in hc_changes if ch["diff"] < 0]
+        hc_rises = [ch for ch in hc_changes if ch["diff"] > 0]
+
+        if hc_drops and hc_rises:
+            drop = max(hc_drops, key=lambda c: abs(c["diff"]))
+            rise = max(hc_rises, key=lambda c: abs(c["diff"]))
+            ref  = drop
+            desc = f"{drop['label']} 배당 급락 ❄️  /  {rise['label']} 배당 급등 🔥"
+            hc_pick = "fav" if drop["key"] == "fav_odds" else "dog"
+        elif hc_drops:
+            drop = hc_drops[0]
+            ref  = drop
+            desc = f"{drop['label']} 배당 급락 ❄️"
+            hc_pick = "fav" if drop["key"] == "fav_odds" else "dog"
+        else:
+            rise = hc_rises[0]
+            ref  = rise
+            desc = f"{rise['label']} 배당 급등 🔥  (반대 팀 샤프 유입)"
+            hc_pick = "dog" if rise["key"] == "fav_odds" else "fav"
+
         signals.append(Signal(**b,
             market      = f"핸디캡 [스팀]",
             description = desc,
-            opening_val = str(drop["open"]),
-            current_val = str(drop["curr"]),
-            change_val  = f"{drop['diff']:+.2f}",
+            opening_val = str(ref["open"]),
+            current_val = str(ref["curr"]),
+            change_val  = f"{ref['diff']:+.2f}",
             pick_side   = hc_pick,
         ))
 
