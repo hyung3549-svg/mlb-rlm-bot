@@ -224,9 +224,19 @@ async def _cmd_picks(chat_id: str) -> str:
         return f"❌ 픽 조회 오류: {e}"
 
 
+async def _cmd_resetdb(chat_id: str) -> str:
+    """경기 DB 초기화 (잘못된 날짜 데이터 등 리셋)"""
+    try:
+        DB.save_db({"games": {}})
+        return "🗑 경기 DB 초기화 완료. 다음 사이클에서 새로 수집합니다."
+    except Exception as e:
+        return f"❌ 초기화 오류: {e}"
+
+
 COMMANDS = {
-    "/status": _cmd_status,
-    "/picks":  _cmd_picks,
+    "/status":  _cmd_status,
+    "/picks":   _cmd_picks,
+    "/resetdb": _cmd_resetdb,
 }
 
 
