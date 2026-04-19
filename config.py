@@ -43,6 +43,8 @@ LEAGUES = {
     "Bundesliga": 541,  # 독일 분데스리가
     "SerieA":    543,   # 이탈리아 세리에A
     "Ligue1":    548,   # 프랑스 리그1
+    "LaLiga":    545,   # 스페인 라리가
+    "UCL":       566,   # UEFA 챔피언스리그
 }
 
 # 리그 → BetConstruct sport alias (스크래퍼 where 절)
@@ -54,6 +56,8 @@ LEAGUE_SPORTS = {
     "Bundesliga": "Soccer",
     "SerieA":    "Soccer",
     "Ligue1":    "Soccer",
+    "LaLiga":    "Soccer",
+    "UCL":       "Soccer",
 }
 
 # ─── 데이터 저장 경로 ──────────────────────────────

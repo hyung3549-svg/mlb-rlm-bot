@@ -39,6 +39,7 @@ PICKS_DB_PATH = os.path.join(config.DATA_DIR, "picks_db.json")
 LEAGUE_EMOJI  = {
     "MLB": "⚾", "KBO": "🇰🇷", "NPB": "🇯🇵",
     "EPL": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Bundesliga": "🇩🇪", "SerieA": "🇮🇹", "Ligue1": "🇫🇷",
+    "LaLiga": "🇪🇸", "UCL": "🏆",
 }
 
 WS_URL  = "wss://eu-swarm-springre.betconstruct.com/"
