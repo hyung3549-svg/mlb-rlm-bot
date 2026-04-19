@@ -156,21 +156,28 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
                 if t1 == "Over":  row["over_odds"] = price
                 elif t1 == "Under": row["under_odds"] = price
 
-    # -1.5 배당이 낮은 쪽 = 실제 정배팀 (모노라인 정배 = RunLine 정배)
+    # 모노라인으로 정배팀 판단 → 정배팀이 -1.5 사이드인 RunLine만 사용
     handicap_15 = None
-    if rl_candidates:
-        best = min(rl_candidates, key=lambda c: c[1])  # neg15_price 가장 낮은 것
-        neg15_side, neg15_price, pos15_price = best
-        if neg15_side == "away":
-            handicap_15 = {
-                "fav_team": away_team, "dog_team": home_team,
-                "fav_odds": neg15_price, "dog_odds": pos15_price,
-            }
-        else:
-            handicap_15 = {
-                "fav_team": home_team, "dog_team": away_team,
-                "fav_odds": neg15_price, "dog_odds": pos15_price,
-            }
+    if rl_candidates and moneyline:
+        away_ml = moneyline.get("away_odds") or 999
+        home_ml = moneyline.get("home_odds") or 999
+        ml_fav_side = "away" if away_ml < home_ml else "home"
+
+        for neg15_side, neg15_price, pos15_price in rl_candidates:
+            if neg15_side == ml_fav_side:
+                # ML 정배팀이 -1.5를 주는 표준 런라인
+                if ml_fav_side == "away":
+                    handicap_15 = {
+                        "fav_team": away_team, "dog_team": home_team,
+                        "fav_odds": neg15_price, "dog_odds": pos15_price,
+                    }
+                else:
+                    handicap_15 = {
+                        "fav_team": home_team, "dog_team": away_team,
+                        "fav_odds": neg15_price, "dog_odds": pos15_price,
+                    }
+                break
+    # ml_fav_side 가 -1.5 마켓에 없으면 handicap_15 = None (역런라인만 존재)
 
     return {
         "moneyline":   moneyline,
