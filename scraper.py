@@ -1,13 +1,18 @@
 """
-BETWIZ MLB 배당 스크래퍼 (WebSocket 버전)
+BETWIZ 배당 스크래퍼 (WebSocket 버전)
 
 BetConstruct Swarm WebSocket API 직접 연결 — Playwright 불필요
 엔드포인트: wss://eu-swarm-springre.betconstruct.com/
 
-수집 항목:
-  - 승패 (P1P2 / MoneyLine): 홈/원정 배당
-  - 핸디캡 1.5 (RunLine): -1.5 / +1.5 배당
-  - 오버/언더 (TotalRuns*): 1.90에 가장 가까운 메인 라인
+야구 (MLB/KBO/NPB):
+  - 승패 (P1P2): W1=홈, W2=어웨이
+  - 핸디캡 (RunLine): -1.5 기준
+  - 오버/언더 (TotalRunsOver/Under): 1.90 최근접 라인
+
+축구 (EPL 등):
+  - 1X2 (P1XP2): W1=홈, X=무, W2=어웨이
+  - 핸디캡 (AsianHandicap): 가장 균형잡힌 라인
+  - 오버/언더 (OverUnder): 2.5 최근접 라인
 """
 
 import asyncio
@@ -51,8 +56,8 @@ def _safe_float(v) -> Optional[float]:
         return None
 
 
-def _main_ou_line(ou_rows: list[dict]) -> Optional[dict]:
-    """오버/언더 라인 중 양쪽 배당이 1.90에 가장 가까운 메인 라인 반환."""
+def _main_ou_line(ou_rows: list[dict], target: float = 1.90) -> Optional[dict]:
+    """오버/언더 라인 중 양쪽 배당이 target에 가장 가까운 메인 라인 반환."""
     best       = None
     best_score = 9999.0
     for row in ou_rows:
@@ -60,58 +65,59 @@ def _main_ou_line(ou_rows: list[dict]) -> Optional[dict]:
         u = row.get("under_odds")
         if o is None or u is None:
             continue
-        score = abs(o - 1.90) + abs(u - 1.90)
+        score = abs(o - target) + abs(u - target)
         if score < best_score:
             best_score = score
             best       = row
     return best
 
 
-# ─── 마켓 파싱 ───────────────────────────────────────────────────────────────
+def _main_hc_line(hc_rows: list[dict]) -> Optional[dict]:
+    """핸디캡 라인 중 양쪽 배당이 1.90에 가장 가까운 라인 반환."""
+    best       = None
+    best_score = 9999.0
+    for row in hc_rows:
+        fo = row.get("fav_odds")
+        do = row.get("dog_odds")
+        if fo is None or do is None:
+            continue
+        score = abs(fo - 1.90) + abs(do - 1.90)
+        if score < best_score:
+            best_score = score
+            best       = row
+    return best
 
-def _parse_markets(markets_data: dict, away_team: str, home_team: str) -> dict:
+
+# ─── 마켓 파싱 (야구) ────────────────────────────────────────────────────────
+
+def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) -> dict:
     """
-    게임에 딸린 마켓 딕셔너리에서 세 가지 항목 추출.
-
-    BetConstruct market.type 값:
-      - 'P1P2' 또는 'MoneyLine' → 승패
-      - 'RunLine'               → 핸디캡 (base=-1.5 가 페이버릿)
-      - 'TotalRuns' / 'TotalRunsOver' / 'TotalRunsUnder' → 오버언더
-
-    event.type_1: 'Away' | 'Home' | 'Over' | 'Under'
-    event.base  : 해당 이벤트의 핸디/라인 수치
+    야구 마켓 파싱 (MLB/KBO/NPB).
+    P1P2 → 승패, RunLine(-1.5) → 핸디캡, TotalRunsOver/Under → 언오버
     """
-    moneyline   = None
-    hc_away: Optional[tuple] = None   # (base, price)
+    moneyline = None
+    hc_away: Optional[tuple] = None
     hc_home: Optional[tuple] = None
-    ou_map: dict[float, dict] = {}    # line → {over_odds, under_odds}
+    ou_map: dict[float, dict] = {}
 
     for _mid, market in markets_data.items():
         mtype  = market.get("type", "")
-        mname  = market.get("name", "")
         events = market.get("event", {})
 
-        # ── 승패 (P1P2) ─────────────────────────────────────────────
-        # BetConstruct: W1=홈(team1), W2=어웨이(team2)
         if mtype == "P1P2":
             if moneyline is None:
                 away_p = home_p = None
                 for ev in events.values():
                     t1    = ev.get("type_1", "")
                     price = _safe_float(ev.get("price"))
-                    if t1 == "W2":        # Away
-                        away_p = price
-                    elif t1 == "W1":      # Home
-                        home_p = price
+                    if t1 == "W2":   away_p = price
+                    elif t1 == "W1": home_p = price
                 if away_p and home_p:
                     moneyline = {
-                        "away_team": away_team,
-                        "home_team": home_team,
-                        "away_odds": away_p,
-                        "home_odds": home_p,
+                        "away_team": away_team, "away_odds": away_p,
+                        "home_team": home_team, "home_odds": home_p,
                     }
 
-        # ── 핸디캡 (RunLine) ────────────────────────────────────────
         elif mtype == "RunLine":
             for ev in events.values():
                 base  = _safe_float(ev.get("base"))
@@ -119,54 +125,122 @@ def _parse_markets(markets_data: dict, away_team: str, home_team: str) -> dict:
                 t1    = ev.get("type_1", "")
                 if base is None or price is None:
                     continue
-                if t1 == "Away":
-                    hc_away = (base, price)
-                elif t1 == "Home":
-                    hc_home = (base, price)
+                if t1 == "Away":   hc_away = (base, price)
+                elif t1 == "Home": hc_home = (base, price)
 
-        # ── 오버/언더 (메인 게임 전체, 이닝/5이닝 제외) ──────────────
         elif mtype == "TotalRunsOver/Under":
-            # market.base 에 라인 값이 있을 수도, event.base 에 있을 수도 있음
             mkt_base = _safe_float(market.get("base"))
             for ev in events.values():
-                t1       = ev.get("type_1", "")
-                price    = _safe_float(ev.get("price"))
-                ev_base  = _safe_float(ev.get("base"))
-                line     = ev_base if ev_base is not None else mkt_base
+                t1      = ev.get("type_1", "")
+                price   = _safe_float(ev.get("price"))
+                ev_base = _safe_float(ev.get("base"))
+                line    = ev_base if ev_base is not None else mkt_base
                 if line is None or price is None:
                     continue
-                row = ou_map.setdefault(line, {})
-                if t1 == "Over":
-                    row["over_odds"]   = price
-                    row["over_label"]  = f"오버 ({line})"
-                    row["line"]        = line
-                elif t1 == "Under":
-                    row["under_odds"]  = price
-                    row["under_label"] = f"언더 ({line})"
-                    row["line"]        = line
+                row = ou_map.setdefault(line, {"line": line})
+                if t1 == "Over":  row["over_odds"] = price
+                elif t1 == "Under": row["under_odds"] = price
 
-    # ── 핸디캡 조립 ──────────────────────────────────────────────────
     handicap_15 = None
     if hc_away and hc_home:
         away_base, away_price = hc_away
         home_base, home_price = hc_home
-        if abs(away_base + 1.5) < 0.01:          # 어웨이가 -1.5 (페이버릿)
+        if abs(away_base + 1.5) < 0.01:
             handicap_15 = {
-                "fav_team": away_team,
-                "dog_team": home_team,
-                "fav_odds": away_price,
-                "dog_odds": home_price,
+                "fav_team": away_team, "dog_team": home_team,
+                "fav_odds": away_price, "dog_odds": home_price,
             }
-        elif abs(home_base + 1.5) < 0.01:        # 홈이 -1.5 (페이버릿)
+        elif abs(home_base + 1.5) < 0.01:
             handicap_15 = {
-                "fav_team": home_team,
-                "dog_team": away_team,
-                "fav_odds": home_price,
-                "dog_odds": away_price,
+                "fav_team": home_team, "dog_team": away_team,
+                "fav_odds": home_price, "dog_odds": away_price,
             }
 
-    # ── 메인 O/U 선택 ────────────────────────────────────────────────
-    main_ou = _main_ou_line(list(ou_map.values()))
+    return {
+        "moneyline":   moneyline,
+        "handicap_15": handicap_15,
+        "main_ou":     _main_ou_line(list(ou_map.values())),
+    }
+
+
+# ─── 마켓 파싱 (축구) ────────────────────────────────────────────────────────
+
+def _parse_soccer_markets(markets_data: dict, away_team: str, home_team: str) -> dict:
+    """
+    축구 마켓 파싱 (EPL 등).
+    P1XP2 → 1X2 (홈/무/어웨이), AsianHandicap → 균형 라인, OverUnder → 2.5 근접
+    moneyline 에 draw_odds 추가로 저장 (3-way 분석용)
+    """
+    moneyline = None
+    hc_rows: list[dict] = []
+    ou_map: dict[float, dict] = {}
+
+    for _mid, market in markets_data.items():
+        mtype  = market.get("type", "")
+        events = market.get("event", {})
+
+        # ── 1X2 ────────────────────────────────────────────────────
+        if mtype == "P1XP2":
+            if moneyline is None:
+                away_p = home_p = draw_p = None
+                for ev in events.values():
+                    t1    = ev.get("type_1", "")
+                    price = _safe_float(ev.get("price"))
+                    if t1 == "W2":   away_p = price
+                    elif t1 == "W1": home_p = price
+                    elif t1 == "X":  draw_p = price
+                if away_p and home_p:
+                    moneyline = {
+                        "away_team": away_team, "away_odds": away_p,
+                        "home_team": home_team, "home_odds": home_p,
+                        "draw_odds": draw_p,    # 축구 전용 — 무승부
+                    }
+
+        # ── 아시안 핸디캡 ───────────────────────────────────────────
+        elif mtype == "AsianHandicap":
+            mkt_base = _safe_float(market.get("base"))
+            home_p = away_p = None
+            for ev in events.values():
+                t1    = ev.get("type_1", "")
+                price = _safe_float(ev.get("price"))
+                if t1 == "Home":  home_p = price
+                elif t1 == "Away": away_p = price
+            if home_p and away_p and mkt_base is not None:
+                # fav = base < 0 (불리 팀) → home 이 base<0 이면 home이 페이버릿
+                if mkt_base < 0:
+                    hc_rows.append({
+                        "base": mkt_base,
+                        "fav_team": home_team, "dog_team": away_team,
+                        "fav_odds": home_p,    "dog_odds": away_p,
+                    })
+                else:  # base >= 0: away가 불리 (away가 페이버릿)
+                    hc_rows.append({
+                        "base": mkt_base,
+                        "fav_team": away_team, "dog_team": home_team,
+                        "fav_odds": away_p,    "dog_odds": home_p,
+                    })
+
+        # ── 언오버 ─────────────────────────────────────────────────
+        elif mtype == "OverUnder":
+            mkt_base = _safe_float(market.get("base"))
+            over_p = under_p = None
+            for ev in events.values():
+                t1    = ev.get("type_1", "")
+                price = _safe_float(ev.get("price"))
+                if t1 == "Over":  over_p = price
+                elif t1 == "Under": under_p = price
+            if mkt_base is not None and over_p and under_p:
+                ou_map[mkt_base] = {
+                    "line": mkt_base,
+                    "over_odds": over_p,
+                    "under_odds": under_p,
+                }
+
+    # 핸디캡: 가장 균형잡힌 라인 선택
+    handicap_15 = _main_hc_line(hc_rows)
+
+    # 언오버: 2.5 목표로 가장 가까운 라인 (축구 표준)
+    main_ou = _main_ou_line(list(ou_map.values()), target=1.90)
 
     return {
         "moneyline":   moneyline,
@@ -175,10 +249,21 @@ def _parse_markets(markets_data: dict, away_team: str, home_team: str) -> dict:
     }
 
 
+# ─── 스포츠별 파싱 분기 ──────────────────────────────────────────────────────
+
+def _parse_markets(markets_data: dict, away_team: str, home_team: str,
+                   sport: str = "Baseball") -> dict:
+    if sport == "Soccer":
+        return _parse_soccer_markets(markets_data, away_team, home_team)
+    return _parse_baseball_markets(markets_data, away_team, home_team)
+
+
 # ─── WebSocket 수집 ─────────────────────────────────────────────────────────
 
 async def _ws_get_league_data(ws, league: str, competition_id: int) -> list[dict]:
     """특정 리그 경기 데이터 요청 (기존 연결된 ws 재사용)."""
+    sport = config.LEAGUE_SPORTS.get(league, "Baseball")
+
     await ws.send(json.dumps({
         "command": "get",
         "params": {
@@ -190,7 +275,7 @@ async def _ws_get_league_data(ws, league: str, competition_id: int) -> list[dict
                 "event":  ["id", "name", "price", "type_1", "base"],
             },
             "where": {
-                "sport":       {"alias": "Baseball"},
+                "sport":       {"alias": sport},
                 "competition": {"id": competition_id},
                 "game":        {"is_started": 0},
             },
@@ -206,7 +291,7 @@ async def _ws_get_league_data(ws, league: str, competition_id: int) -> list[dict
             .get("data", {})
             .get("game", {})
     )
-    logger.info(f"[WS] {league} 경기 {len(games_raw)}개 수신")
+    logger.info(f"[WS] {league}({sport}) 경기 {len(games_raw)}개 수신")
 
     results = []
     for game_id, game in games_raw.items():
@@ -216,12 +301,13 @@ async def _ws_get_league_data(ws, league: str, competition_id: int) -> list[dict
         game_time = _ts_to_kst_hhmm(int(start_ts)) if start_ts else "??:?? KST"
 
         markets = game.get("market", {})
-        parsed  = _parse_markets(markets, away_team, home_team)
+        parsed  = _parse_markets(markets, away_team, home_team, sport=sport)
 
         results.append({
             "url":           f"https://www.bwzkix1.com/{competition_id}/{game_id}",
             "match_id":      str(game_id),
             "league":        league,
+            "sport":         sport,
             "away_team":     away_team,
             "home_team":     home_team,
             "game_time_kst": game_time,

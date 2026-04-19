@@ -104,17 +104,33 @@ def _is_rlm(side_pct: Optional[float], odds_diff: Optional[float]) -> bool:
 # ─── 마켓별 비교 ─────────────────────────────────────────────────────────────
 
 def _compare_ml(open_ml: dict, curr_ml: dict) -> list[dict]:
+    """
+    승패(모노라인) 배당 변화 비교.
+    야구: away/home 2-way
+    축구: away/home/draw 3-way (draw_odds 필드 존재 시)
+    """
     if not open_ml or not curr_ml:
         return []
     result = []
-    for side in ("away", "home"):
-        o = _f(open_ml.get(f"{side}_odds"))
-        c = _f(curr_ml.get(f"{side}_odds"))
+    sides = ["away", "home"]
+    # 축구: 무승부 추가
+    if open_ml.get("draw_odds") is not None or curr_ml.get("draw_odds") is not None:
+        sides.append("draw")
+
+    for side in sides:
+        key = f"{side}_odds"
+        o   = _f(open_ml.get(key))
+        c   = _f(curr_ml.get(key))
         if o is None or c is None:
             continue
+        # draw 팀명 표시
+        team = (
+            "무승부" if side == "draw"
+            else open_ml.get(f"{side}_team", side)
+        )
         result.append({
             "side":  side,
-            "team":  open_ml.get(f"{side}_team", side),
+            "team":  team,
             "open":  o,
             "curr":  c,
             "diff":  round(c - o, 4),
@@ -197,7 +213,10 @@ def _rlm_moneyline(entry: dict, hours: Optional[float],
             f"(상대 {_money_tier(opp_pct)})"
         )
         # 배당역행: ch["side"]에 돈 몰렸는데 배당 악화 → 샤프머니는 반대쪽 → 픽: 반대
-        pick = "home" if ch["side"] == "away" else "away"
+        # 축구 draw: 돈이 무승부에 몰렸는데 무승부 배당 악화 → 확실한 결과 쪽
+        if ch["side"] == "away":   pick = "home"
+        elif ch["side"] == "home": pick = "away"
+        else:                      pick = "away"   # draw → 어웨이 (보수적)
         signals.append(Signal(
             **_base(entry, hours, sig_type),
             market      = "승패",

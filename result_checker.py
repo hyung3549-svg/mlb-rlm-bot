@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 KST           = timezone(timedelta(hours=9))
 PICKS_DB_PATH = os.path.join(config.DATA_DIR, "picks_db.json")
-LEAGUE_EMOJI  = {"MLB": "⚾", "KBO": "🇰🇷", "NPB": "🇯🇵"}
+LEAGUE_EMOJI  = {"MLB": "⚾", "KBO": "🇰🇷", "NPB": "🇯🇵", "EPL": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"}
 
 WS_URL  = "wss://eu-swarm-springre.betconstruct.com/"
 SITE_ID = "18747716"

@@ -54,6 +54,7 @@ LEAGUE_EMOJI = {
     "MLB": "⚾",
     "KBO": "🇰🇷",
     "NPB": "🇯🇵",
+    "EPL": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
 }
 
 
@@ -66,6 +67,8 @@ def _pick_line(sig: Signal) -> str:
         return f"\n🎯 픽: 어웨이  *{sig.away_team}*"
     if side == "home":
         return f"\n🎯 픽: 홈  *{sig.home_team}*"
+    if side == "draw":
+        return f"\n🎯 픽: 무승부 X"
     if side == "over":
         m = re.search(r"\((\d+\.?\d*)\)", sig.market)
         line = m.group(1) if m else ""

@@ -37,6 +37,15 @@ LEAGUES = {
     "MLB": 608,
     "KBO": 611,
     "NPB": 612,
+    "EPL": 538,
+}
+
+# 리그 → BetConstruct sport alias (스크래퍼에서 where 절에 사용)
+LEAGUE_SPORTS = {
+    "MLB": "Baseball",
+    "KBO": "Baseball",
+    "NPB": "Baseball",
+    "EPL": "Soccer",
 }
 
 # ─── 데이터 저장 경로 ──────────────────────────────
