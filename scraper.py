@@ -11,8 +11,8 @@ BetConstruct Swarm WebSocket API 직접 연결 — Playwright 불필요
 
 축구 (EPL 등):
   - 1X2 (P1XP2): W1=홈, X=무, W2=어웨이
-  - 핸디캡 (Handicap): 일반 3-way 핸디캡, 가장 균형잡힌 라인 선택
-  - 오버/언더 (OverUnder): 1.90 배당 최근접 라인
+  - 핸디캡 (AsianHandicap): 가장 균형잡힌 라인
+  - 오버/언더 (OverUnder): 2.5 최근접 라인
 """
 
 import asyncio
@@ -111,27 +111,28 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
                 for ev in events.values():
                     t1    = ev.get("type_1", "")
                     price = _safe_float(ev.get("price"))
-                    # Baseball uses team1=away, team2=home in the feed.
-                    if t1 == "W1":   away_p = price
-                    elif t1 == "W2": home_p = price
+                    if t1 == "W2":   away_p = price
+                    elif t1 == "W1": home_p = price
                 if away_p and home_p:
                     moneyline = {
                         "away_team": away_team, "away_odds": away_p,
                         "home_team": home_team, "home_odds": home_p,
                     }
 
-        elif mtype in ("RunLine", "Handicap", "AsianHandicap"):
+        elif mtype == "RunLine":
+            # ±1.5 마켓만 처리 (2.5, 3.5 등 무시)
             mkt_base = _safe_float(market.get("base"))
+            if mkt_base is None or abs(abs(mkt_base) - 1.5) > 0.01:
+                continue
             tmp_away = tmp_home = None
             for ev in events.values():
-                ev_b  = _safe_float(ev.get("base"))
-                base  = ev_b if ev_b is not None else mkt_base
+                base  = _safe_float(ev.get("base"))
                 price = _safe_float(ev.get("price"))
                 t1    = ev.get("type_1", "")
                 if base is None or price is None:
                     continue
-                if t1 in ("Away", "W1", "Team 1"):   tmp_away = (base, price)
-                elif t1 in ("Home", "W2", "Team 2"): tmp_home = (base, price)
+                if t1 == "Away":   tmp_away = (base, price)
+                elif t1 == "Home": tmp_home = (base, price)
             if tmp_away and tmp_home:
                 ab, ap = tmp_away
                 hb, hp = tmp_home
@@ -155,7 +156,7 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
                 if t1 == "Over":  row["over_odds"] = price
                 elif t1 == "Under": row["under_odds"] = price
 
-    # 모노라인으로 정배팀 판단 (승패 기반 무조건 -1.5 할당)
+    # 모노라인으로 정배팀 판단 → 정배팀이 -1.5 사이드인 RunLine만 사용
     handicap_15 = None
     if rl_candidates and moneyline:
         away_ml = moneyline.get("away_odds") or 999
@@ -164,35 +165,19 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
 
         for neg15_side, neg15_price, pos15_price in rl_candidates:
             if neg15_side == ml_fav_side:
+                # ML 정배팀이 -1.5를 주는 표준 런라인
                 if ml_fav_side == "away":
                     handicap_15 = {
                         "fav_team": away_team, "dog_team": home_team,
                         "fav_odds": neg15_price, "dog_odds": pos15_price,
-                        "base": -1.5,
                     }
                 else:
                     handicap_15 = {
                         "fav_team": home_team, "dog_team": away_team,
                         "fav_odds": neg15_price, "dog_odds": pos15_price,
-                        "base": -1.5,
                     }
                 break
-                
-        # 일치하지 않는 라인밖에 없더라도 강제로 정배팀에게 첫번째 라인의 배당을 매핑
-        if handicap_15 is None and rl_candidates:
-            _, neg15_price, pos15_price = rl_candidates[0]
-            if ml_fav_side == "away":
-                handicap_15 = {
-                    "fav_team": away_team, "dog_team": home_team,
-                    "fav_odds": neg15_price, "dog_odds": pos15_price,
-                    "base": -1.5,
-                }
-            else:
-                handicap_15 = {
-                    "fav_team": home_team, "dog_team": away_team,
-                    "fav_odds": neg15_price, "dog_odds": pos15_price,
-                    "base": -1.5,
-                }
+    # ml_fav_side 가 -1.5 마켓에 없으면 handicap_15 = None (역런라인만 존재)
 
     return {
         "moneyline":   moneyline,
@@ -206,13 +191,8 @@ def _parse_baseball_markets(markets_data: dict, away_team: str, home_team: str) 
 def _parse_soccer_markets(markets_data: dict, away_team: str, home_team: str) -> dict:
     """
     축구 마켓 파싱 (EPL 등).
-    P1XP2 → 1X2 (홈/무/어웨이), Handicap → 일반 3-way 핸디캡 균형 라인, OverUnder → 균형 라인
+    P1XP2 → 1X2 (홈/무/어웨이), AsianHandicap → 균형 라인, OverUnder → 2.5 근접
     moneyline 에 draw_odds 추가로 저장 (3-way 분석용)
-
-    Handicap 시장 base 규칙 (BetConstruct):
-      base = 홈팀 기준 핸디캡
-      base < 0  (예: -1.0): 홈팀이 -1.0 핸디 → 홈팀이 정배
-      base > 0  (예: +1.0): 홈팀이 +1.0 핸디 → 어웨이팀이 정배 (-1.0)
     """
     moneyline = None
     hc_rows: list[dict] = []
@@ -239,65 +219,50 @@ def _parse_soccer_markets(markets_data: dict, away_team: str, home_team: str) ->
                         "draw_odds": draw_p,    # 축구 전용 — 무승부
                     }
 
-        # ── 아시안 핸디캡 (0.5 단위 라인만) ──────────────────────
-        # Handicap(승무패) 마켓은 ±1,±2 정수만 있어 불균형 → AsianHandicap 사용
-        # 0.25, 0.75 등 쿼터 라인 제외하고 0, 0.5, 1.0 단위만
+        # ── 아시안 핸디캡 ───────────────────────────────────────────
         elif mtype == "AsianHandicap":
             mkt_base = _safe_float(market.get("base"))
-            if mkt_base is None or abs(round(mkt_base * 2) - mkt_base * 2) > 0.01:
-                continue
             home_p = away_p = None
-            home_ev_base = away_ev_base = None
             for ev in events.values():
-                t1      = ev.get("type_1", "")
-                price   = _safe_float(ev.get("price"))
-                ev_base = _safe_float(ev.get("base"))
-                if t1 == "Home":
-                    home_p, home_ev_base = price, ev_base
-                elif t1 == "Away":
-                    away_p, away_ev_base = price, ev_base
-            if home_p and away_p:
-                # 낮은 배당 팀 = 이 라인에서 이길 확률 높은 팀 (시장 정배)
-                if home_p <= away_p:
+                t1    = ev.get("type_1", "")
+                price = _safe_float(ev.get("price"))
+                if t1 == "Home":  home_p = price
+                elif t1 == "Away": away_p = price
+            if home_p and away_p and mkt_base is not None:
+                # fav = base < 0 (불리 팀) → home 이 base<0 이면 home이 페이버릿
+                if mkt_base < 0:
                     hc_rows.append({
-                        "base":     home_ev_base if home_ev_base is not None else 0.0,
+                        "base": mkt_base,
                         "fav_team": home_team, "dog_team": away_team,
                         "fav_odds": home_p,    "dog_odds": away_p,
                     })
-                else:
+                else:  # base >= 0: away가 불리 (away가 페이버릿)
                     hc_rows.append({
-                        "base":     away_ev_base if away_ev_base is not None else 0.0,
+                        "base": mkt_base,
                         "fav_team": away_team, "dog_team": home_team,
                         "fav_odds": away_p,    "dog_odds": home_p,
                     })
 
         # ── 언오버 ─────────────────────────────────────────────────
         elif mtype == "OverUnder":
-            mkt_name = market.get("name", "").lower()
-            # 팀별 골/코너 언오버 제외 → 토탈 골만 사용
-            if any(x in mkt_name for x in ["team", "home", "away", "1st", "2nd", "half", "corner", "card"]):
-                continue
             mkt_base = _safe_float(market.get("base"))
-            # 0.5 단위 라인만 허용 (2.25, 2.75 등 아시안 쿼터 라인 제외)
-            if mkt_base is None or abs(round(mkt_base * 2) - mkt_base * 2) > 0.01:
-                continue
             over_p = under_p = None
             for ev in events.values():
                 t1    = ev.get("type_1", "")
                 price = _safe_float(ev.get("price"))
                 if t1 == "Over":  over_p = price
                 elif t1 == "Under": under_p = price
-            if over_p and under_p:
+            if mkt_base is not None and over_p and under_p:
                 ou_map[mkt_base] = {
                     "line": mkt_base,
                     "over_odds": over_p,
                     "under_odds": under_p,
                 }
 
-    # 핸디캡: 양쪽 배당이 가장 균형잡힌 라인 선택
+    # 핸디캡: 가장 균형잡힌 라인 선택
     handicap_15 = _main_hc_line(hc_rows)
 
-    # 언오버: 양쪽 배당이 1.90에 가장 가까운 라인 선택 (축구 표준 ~2.5골)
+    # 언오버: 2.5 목표로 가장 가까운 라인 (축구 표준)
     main_ou = _main_ou_line(list(ou_map.values()), target=1.90)
 
     return {
@@ -353,12 +318,8 @@ async def _ws_get_league_data(ws, league: str, competition_id: int) -> list[dict
 
     results = []
     for game_id, game in games_raw.items():
-        if sport == "Baseball":
-            home_team = game.get("team2_name", "")
-            away_team = game.get("team1_name", "")
-        else:
-            home_team = game.get("team1_name", "")
-            away_team = game.get("team2_name", "")
+        home_team = game.get("team1_name", "")
+        away_team = game.get("team2_name", "")
         start_ts  = game.get("start_ts", 0)
         game_time = _ts_to_kst_hhmm(int(start_ts)) if start_ts else "??:?? KST"
 
